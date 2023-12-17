@@ -7,7 +7,7 @@
 	let embeds: APIEmbed[] = [
 		{
 			title: 'にゃーん',
-			color: 0x000000,
+			color: 0xffffff,
 			description: 'this is embed description',
 			timestamp: '01/12/2023 00:00',
 			author: {
@@ -32,6 +32,9 @@
 					'https://lh3.googleusercontent.com/a-/AOh14GgdSSCo3ooeyyoaIvFBPykXmIVyprXdJ7IImAUi#.png',
 				text: 'aaa'
 			}
+		},{
+			color: 0x0000ff,
+			description: "embed2"
 		}
 	];
 </script>

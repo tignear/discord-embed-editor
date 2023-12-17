@@ -6,7 +6,10 @@
 </script>
 
 <div class="container">
-	<article class="embed-wrapper" style:border-color={'#' + data.color?.toString(16) ?? 0}>
+	<article
+		class="embed-wrapper"
+		style:border-color={'#' + data.color?.toString(16).padStart(6, '0') ?? '000000'}
+	>
 		<div class="grid-container">
 			<div class="grid">
 				{#if author != null}
@@ -30,9 +33,9 @@
 					</div>
 				{/if}
 				<EmbedFields fields={data.fields ?? []}></EmbedFields>
-				{#if data.footer || data.timestamp}
+				{#if data.footer != null || data.timestamp != null}
 					<div class="embed-footer embed-margin">
-						{#if data.footer?.icon_url}
+						{#if data.footer?.icon_url != null}
 							<img class="embed-footer-icon" src={data.footer.icon_url} alt="" />
 						{/if}
 						<span class="embed-footer-text">
