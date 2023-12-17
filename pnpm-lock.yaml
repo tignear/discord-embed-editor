@@ -23,6 +23,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^6.0.0
     version: 6.14.0(eslint@8.56.0)(typescript@5.3.3)
+  discord-api-types:
+    specifier: ^0.37.66
+    version: 0.37.66
   eslint:
     specifier: ^8.28.0
     version: 8.56.0
@@ -1245,6 +1248,10 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       path-type: 4.0.0
+    dev: true
+
+  /discord-api-types@0.37.66:
+    resolution: {integrity: sha512-3Q+6uBODmVaPAmZZ1jYQiQBbp0hqArgSU9Y6DuYY6KW5Sdij91bwbmFnnVI5XvATRkY+Wk9KMBWFzAEwSDs+1w==}
     dev: true
 
   /doctrine@3.0.0:

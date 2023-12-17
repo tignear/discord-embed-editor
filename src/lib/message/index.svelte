@@ -1,22 +1,32 @@
 <script lang="ts">
 	import Avatar from './avatar.svelte';
 	import Header from './header.svelte';
-	import MessageContent from './message-content.svelte';
+	import Content from './content.svelte';
+	import Embed from './embed.svelte';
+	import type { APIEmbed } from 'discord-api-types/v10';
 
-	export let message: string = '';
+	export let content: string = '';
 	export let icon: string | undefined = undefined;
 	export let timestamp: string;
+	export let username: string;
+	export let embeds: APIEmbed[] = [];
 </script>
 
 <div class="message">
-	<Header {timestamp}></Header>
+	<Header {timestamp} {username}></Header>
 	<Avatar src={icon} />
-	<MessageContent {message}></MessageContent>
+	<Content {content}></Content>
+
+	<div>
+		{#each embeds as embed}
+			<Embed data={embed}></Embed>
+		{/each}
+	</div>
 </div>
 
 <style>
 	.message {
-		background-color: rgb(49, 51, 56);
+		background-color: hsl(223 calc(1 * 6.7%) 20.6% / 1);
 		color: rgb(219, 222, 225);
 		padding-left: 72px;
 		padding-right: 48px;

@@ -1,11 +1,11 @@
 <script lang="ts">
-	export let message: string = '';
+	export let content: string = '';
 </script>
 
-<div><span class="plain">{message}</span></div>
+<div><span class="content">{content}</span></div>
 
 <style>
-	.plain {
+	.content {
 		white-space: break-spaces;
 		word-wrap: break-word;
 	}
