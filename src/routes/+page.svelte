@@ -25,6 +25,26 @@
 					name: 'aaaaaa',
 					value: 'bbbbb',
 					inline: true
+				},
+				{
+					name: 'aaaaaa',
+					value: 'bbbbb',
+					inline: true
+				},
+				{
+					name: 'aaaaaa',
+					value: 'bbbbb',
+					inline: true
+				},
+				{
+					name: 'aaaaaa',
+					value: 'bbbbb',
+					inline: true
+				},
+				{
+					name: 'aaaaaa1',
+					value: 'bbbbb',
+					inline: false
 				}
 			],
 			footer: {

@@ -4,50 +4,34 @@
 	export let fields: APIEmbedField[];
 	function processInlineFields(fields: APIEmbedField[]): FieldData[] {
 		const result: FieldData[] = [];
-		let isInInlineContext: APIEmbedField | null = null;
+		let columns: APIEmbedField[] = [];
+		function pushColumns() {
+			let idx = 0;
+			for (const { name, value } of columns) {
+				result.push({
+					name,
+					value,
+					columnStart: 1 + (12 / columns.length) * idx,
+					columnEnd: 1 + (12 / columns.length) * (idx + 1)
+				});
+				idx++;
+			}
+			columns = [];
+		}
 		for (const field of fields) {
 			const inline = field.inline ?? false;
-			if (isInInlineContext != null && inline) {
-				//inline
-				result.push(
-					{
-						name: isInInlineContext.name,
-						value: isInInlineContext.value,
-						inlineClass: 'embed-field-inline-left'
-					},
-					{
-						name: field.name,
-						value: field.value,
-						inlineClass: 'embed-field-inline-right'
-					}
-				);
-				isInInlineContext = null;
-			} else if (inline) {
-				isInInlineContext = field;
+			if (!inline) {
+				pushColumns();
+				columns = [field];
+				pushColumns();
 				continue;
-			} else {
-				if (isInInlineContext) {
-					result.push({
-						name: isInInlineContext.name,
-						value: isInInlineContext.value,
-						inlineClass: 'embed-field-full'
-					});
-					isInInlineContext = null;
-				}
-				result.push({
-					name: field.name,
-					value: field.value,
-					inlineClass: 'embed-field-full'
-				});
+			}
+			columns.push(field);
+			if (columns.length === 3) {
+				pushColumns();
 			}
 		}
-		if (isInInlineContext) {
-			result.push({
-				name: isInInlineContext.name,
-				value: isInInlineContext.value,
-				inlineClass: 'embed-field-full'
-			});
-		}
+		pushColumns();
 		return result;
 	}
 
