@@ -55,12 +55,23 @@
 		return result;
 	}
 	$: fields = processInlineFields(data.fields ?? []);
+	$: author = data.author;
 </script>
 
 <div class="container">
 	<article class="embed-wrapper" style:border-color={'#' + data.color?.toString(16)}>
 		<div class="grid-container">
 			<div class="grid">
+				{#if author != null}
+					<div class="embed-author">
+						{#if author.icon_url != null}
+							<img class="embed-author-icon" src={author.icon_url} alt="" />
+						{/if}
+						{#if author.name != null}
+							<span class="embed-author-name">{author.name}</span>
+						{/if}
+					</div>
+				{/if}
 				{#if data.title}
 					<div class="embed-title embed-margin">
 						{data.title}
@@ -152,6 +163,22 @@
 	}
 	.embed-margin {
 		margin-top: 8px;
+	}
+	.embed-author {
+		display: grid;
+		grid-auto-flow: column;
+		justify-content: left;
+	}
+	.embed-author-icon {
+		margin-right: 8px;
+		width: 24px;
+		height: 24px;
+		object-fit: contain;
+		border-radius: 50%;
+	}
+	.embed-author-name {
+		font-size: 0.875rem;
+		font-weight: 600;
 	}
 	.grid-container {
 		max-width: 516px;

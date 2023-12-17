@@ -9,15 +9,23 @@
 			title: 'にゃーん',
 			color: 0x000000,
 			description: 'this is embed description',
-			fields: [{
-				name: "aaaaaa",
-				value: "bbbbb",
-				inline: true
-			},{
-				name: "aaaaaa",
-				value: "bbbbb",
-				inline: true
-			}]
+			author: {
+				name: 'tig',
+				icon_url:
+					'https://lh3.googleusercontent.com/a-/AOh14GgdSSCo3ooeyyoaIvFBPykXmIVyprXdJ7IImAUi#.png'
+			},
+			fields: [
+				{
+					name: 'aaaaaa',
+					value: 'bbbbb',
+					inline: true
+				},
+				{
+					name: 'aaaaaa',
+					value: 'bbbbb',
+					inline: true
+				}
+			]
 		}
 	];
 </script>
