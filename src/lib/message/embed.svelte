@@ -11,7 +11,7 @@
 		style:border-color={'#' + data.color?.toString(16).padStart(6, '0') ?? '000000'}
 	>
 		<div class="grid-container">
-			<div class="grid">
+			<div class="grid" class:thumbnail={data.thumbnail != null}>
 				{#if author != null}
 					<div class="embed-author">
 						{#if author.icon_url != null}
@@ -33,6 +33,11 @@
 					</div>
 				{/if}
 				<EmbedFields fields={data.fields ?? []}></EmbedFields>
+				{#if data.thumbnail != null}
+					<div class="embed-thumbnail-wrapper">
+						<img class="embed-thumbnail" alt="" src={data.thumbnail.url} />
+					</div>
+				{/if}
 				{#if data.image != null}
 					<div class="embed-image-wrapper">
 						<img class="embed-image" alt="" src={data.image.url} />
@@ -67,6 +72,9 @@
 		border-radius: 4px;
 		background-color: hsl(220 calc(1 * 6.5%) 18% / 1);
 	}
+	.grid.thumbnail {
+		grid-template-columns: auto min-content;
+	}
 	.embed-title {
 		font-size: 1rem;
 		font-weight: 600;
@@ -84,8 +92,7 @@
 		margin-top: 8px;
 	}
 	.embed-author {
-		display: grid;
-		grid-auto-flow: column;
+		display: flex;
 		justify-content: left;
 	}
 	.embed-author-icon {
@@ -104,6 +111,7 @@
 		grid-auto-flow: column;
 		justify-content: left;
 		align-items: center;
+		grid-column: 1;
 	}
 	.embed-footer-icon {
 		margin-right: 8px;
@@ -122,13 +130,35 @@
 		font-weight: 500;
 		margin: 0 4px;
 	}
+	.embed-thumbnail-wrapper {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-self: end;
+		grid-row: 1/8;
+		grid-column: 2/2;
+		margin-left: 16px;
+		margin-top: 8px;
+		object-fit: fill;
+		max-width: 80px;
+		max-height: 80px;
+	}
+	.embed-thumbnail {
+		border-radius: 3px;
+	}
 	.grid-container {
 		max-width: 516px;
 		line-height: 1.375rem;
 		word-wrap: break-word;
 	}
+	.embed-image-wrapper {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-self: end;
+		margin-top: 16px;
+		grid-column: 1/3;
+	}
 	.embed-image {
-		max-width: 400px;
+		max-width: 100%;
 		max-height: 300px;
 	}
 	.grid {

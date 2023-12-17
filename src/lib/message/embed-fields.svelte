@@ -52,6 +52,5 @@
 		grid-column: 1/1;
 		margin-top: 8px;
 		grid-gap: 8px;
-		min-width: 0;
 	}
 </style>

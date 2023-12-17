@@ -54,6 +54,9 @@
 			},
 			image: {
 				url: 'https://media.discordapp.net/attachments/494780225280802819/1185953833835298847/image.png?ex=65917c93&is=657f0793&hm=7b4cfd57db6f74cd917f6a156fbb172c93ab0652fcf93671fe8062fe04964e0b&=&format=webp&quality=lossless&width=1440&height=17'
+			},
+			thumbnail: {
+				url: 'https://lh3.googleusercontent.com/a-/AOh14GgdSSCo3ooeyyoaIvFBPykXmIVyprXdJ7IImAUi#.png',
 			}
 		},
 		{
