@@ -33,6 +33,11 @@
 					</div>
 				{/if}
 				<EmbedFields fields={data.fields ?? []}></EmbedFields>
+				{#if data.image != null}
+					<div class="embed-image-wrapper">
+						<img class="embed-image" alt="" src={data.image.url} />
+					</div>
+				{/if}
 				{#if data.footer != null || data.timestamp != null}
 					<div class="embed-footer embed-margin">
 						{#if data.footer?.icon_url != null}
@@ -121,6 +126,10 @@
 		max-width: 516px;
 		line-height: 1.375rem;
 		word-wrap: break-word;
+	}
+	.embed-image {
+		max-width: 400px;
+		max-height: 300px;
 	}
 	.grid {
 		overflow: hidden;
