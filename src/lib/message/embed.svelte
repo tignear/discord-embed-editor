@@ -1,12 +1,12 @@
 <script lang="ts">
 	import EmbedFields from './embed-fields.svelte';
-	import type { APIEmbed, APIEmbedField } from 'discord-api-types/v10';
+	import type { APIEmbed } from 'discord-api-types/v10';
 	export let data: APIEmbed;
 	$: author = data.author;
 </script>
 
 <div class="container">
-	<article class="embed-wrapper" style:border-color={'#' + data.color?.toString(16)}>
+	<article class="embed-wrapper" style:border-color={'#' + data.color?.toString(16) ?? 0}>
 		<div class="grid-container">
 			<div class="grid">
 				{#if author != null}
@@ -19,17 +19,31 @@
 						{/if}
 					</div>
 				{/if}
-				{#if data.title}
+				{#if data.title != null}
 					<div class="embed-title embed-margin">
 						{data.title}
 					</div>
 				{/if}
-				{#if data.description}
+				{#if data.description != null}
 					<div class="embed-description embed-margin">
 						{data.description}
 					</div>
 				{/if}
 				<EmbedFields fields={data.fields ?? []}></EmbedFields>
+				{#if data.footer || data.timestamp}
+					<div class="embed-footer embed-margin">
+						{#if data.footer?.icon_url}
+							<img class="embed-footer-icon" src={data.footer.icon_url} alt="" />
+						{/if}
+						<span class="embed-footer-text">
+							{data.footer?.text ?? ''}
+							{#if data.timestamp != null && data.footer != null}
+								<span class="embed-footer-separator">•</span>
+							{/if}
+							{data.timestamp ?? ''}
+						</span>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</article>
@@ -76,6 +90,29 @@
 	.embed-author-name {
 		font-size: 0.875rem;
 		font-weight: 600;
+	}
+	.embed-footer {
+		display: flex;
+		grid-auto-flow: column;
+		justify-content: left;
+		align-items: center;
+	}
+	.embed-footer-icon {
+		margin-right: 8px;
+		width: 20px;
+		height: 20px;
+		object-fit: contain;
+		border-radius: 50%;
+	}
+	.embed-footer-text {
+		color: rgb(219, 222, 225);
+		font-size: 0.75rem;
+		line-height: 1rem;
+		font-weight: 500;
+	}
+	.embed-footer-separator {
+		font-weight: 500;
+		margin: 0 4px;
 	}
 	.grid-container {
 		max-width: 516px;

@@ -9,6 +9,7 @@
 			title: 'にゃーん',
 			color: 0x000000,
 			description: 'this is embed description',
+			timestamp: '01/12/2023 00:00',
 			author: {
 				name: 'tig',
 				icon_url:
@@ -25,7 +26,12 @@
 					value: 'bbbbb',
 					inline: true
 				}
-			]
+			],
+			footer: {
+				icon_url:
+					'https://lh3.googleusercontent.com/a-/AOh14GgdSSCo3ooeyyoaIvFBPykXmIVyprXdJ7IImAUi#.png',
+				text: 'aaa'
+			}
 		}
 	];
 </script>
