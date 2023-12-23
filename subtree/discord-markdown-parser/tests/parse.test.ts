@@ -434,7 +434,7 @@ describe('Parse', () => {
       },
     ]);
   }),
-    test('GIVEN a list with 1 "-" or "*" signs THEN parse the list', () => {
+    test('GIVEN a list with 1 "-","*" or "1." THEN parse the list', () => {
       expect(parse(' - List elem')).toEqual([
         {
           type: 'list',
@@ -539,6 +539,21 @@ describe('Parse', () => {
           ],
           ordered: false,
           start: undefined,
+        },
+      ]);
+      expect(parse('1. Ordered list')).toEqual([
+        {
+          type: 'list',
+          items: [
+            [
+              {
+                content: 'Ordered list',
+                type: 'text',
+              },
+            ],
+          ],
+          ordered: true,
+          start: 1,
         },
       ]);
       expect(parse('# * Asterisk in heading')).toEqual([
