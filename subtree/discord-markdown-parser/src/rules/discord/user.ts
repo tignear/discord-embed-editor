@@ -1,4 +1,4 @@
-import SimpleMarkdown = require('simple-markdown'); 
+import SimpleMarkdown from 'simple-markdown'; 
 import { UserMentionRegex } from '../../utils/regex.js';
 
 export const user: SimpleMarkdown.ParserRule = {

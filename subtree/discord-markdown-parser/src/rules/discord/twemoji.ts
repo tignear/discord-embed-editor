@@ -1,4 +1,4 @@
-import SimpleMarkdown = require('simple-markdown');import { TwemojiRegex } from '../../utils/twemojiRegex.js';
+import SimpleMarkdown from 'simple-markdown';import { TwemojiRegex } from '../../utils/twemojiRegex.js';
 
 export const twemoji: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.strong.order,

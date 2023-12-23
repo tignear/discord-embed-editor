@@ -1,4 +1,4 @@
-import SimpleMarkdown = require('simple-markdown');
+import SimpleMarkdown from 'simple-markdown';
 import { extend } from '../utils/extend.js';
 
 const LIST_BULLET = '(?:[*-]|\\d+.)';

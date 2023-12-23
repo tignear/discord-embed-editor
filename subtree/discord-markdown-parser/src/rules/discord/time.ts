@@ -1,4 +1,4 @@
-import SimpleMarkdown = require('simple-markdown');import { TimestampRegex } from '../../utils/regex.js';
+import SimpleMarkdown from 'simple-markdown';import { TimestampRegex } from '../../utils/regex.js';
 
 export const timestamp: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.strong.order,

@@ -1,5 +1,5 @@
 import { extend } from '../utils/extend.js';
-import SimpleMarkdown = require('simple-markdown');
+import SimpleMarkdown from 'simple-markdown';
 
 export const em = extend(
   {

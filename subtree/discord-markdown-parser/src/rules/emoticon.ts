@@ -1,4 +1,4 @@
-import SimpleMarkdown = require('simple-markdown');
+import SimpleMarkdown from 'simple-markdown';
 import { EmoticonRegex } from '../utils/regex.js';
 
 export const emoticon: SimpleMarkdown.ParserRule = {

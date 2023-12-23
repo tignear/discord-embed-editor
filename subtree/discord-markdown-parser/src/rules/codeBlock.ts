@@ -1,4 +1,5 @@
-import SimpleMarkdown = require('simple-markdown');import { extend } from '../utils/extend.js';
+import SimpleMarkdown from 'simple-markdown';
+import { extend } from '../utils/extend.js';
 import { CodeBlockRegex } from '../utils/regex.js';
 
 export const codeBlock = extend(
