@@ -20,6 +20,7 @@ import { text } from './rules/text';
 import { url } from './rules/url';
 import { em } from './rules/em';
 import { br } from './rules/br';
+import { list } from './rules/list';
 
 // rules normal users can use
 export const rules = {
@@ -39,6 +40,7 @@ export const rules = {
   br,
   spoiler,
   heading,
+  list,
 
   // discord specific
   user,
