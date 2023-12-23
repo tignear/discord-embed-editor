@@ -1,7 +1,7 @@
-import SimpleMarkdown from 'simple-markdown';
-import { extend } from '../utils/extend';
+import SimpleMarkdown = require('simple-markdown');
+import { extend } from '../utils/extend.js';
 
-const LIST_BULLET = '(?:[*-])';
+const LIST_BULLET = '(?:[*-]|\\d+.)';
 // recognize the start of a list item:
 // leading space plus a bullet plus a space (`   * `)
 const LIST_ITEM_PREFIX = '( *)(' + LIST_BULLET + ') +';

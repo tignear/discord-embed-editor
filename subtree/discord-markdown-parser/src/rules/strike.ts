@@ -1,6 +1,5 @@
-import SimpleMarkdown from 'simple-markdown';
-import { extend } from '../utils/extend';
-import { StrikeThroughRegex } from '../utils/regex';
+import SimpleMarkdown = require('simple-markdown');import { extend } from '../utils/extend.js';
+import { StrikeThroughRegex } from '../utils/regex.js';
 
 export const strikethrough = extend(
   {

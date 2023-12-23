@@ -1,5 +1,4 @@
-import SimpleMarkdown from 'simple-markdown';
-import { SpoilerRegex } from '../utils/regex';
+import SimpleMarkdown = require('simple-markdown');import { SpoilerRegex } from '../utils/regex.js';
 
 export const spoiler: SimpleMarkdown.ParserRule = {
   order: 0,

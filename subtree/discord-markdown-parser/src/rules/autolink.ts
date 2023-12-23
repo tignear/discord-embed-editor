@@ -1,5 +1,4 @@
-import SimpleMarkdown from 'simple-markdown';
-import { extend } from '../utils/extend';
+import SimpleMarkdown = require('simple-markdown');import { extend } from '../utils/extend.js';
 
 export const autolink = extend(
   {

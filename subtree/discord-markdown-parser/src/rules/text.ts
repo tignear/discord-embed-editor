@@ -1,6 +1,6 @@
-import SimpleMarkdown from 'simple-markdown';
-import { extend } from '../utils/extend';
-import { TextRegex } from '../utils/regex';
+import SimpleMarkdown = require('simple-markdown');
+import { extend } from '../utils/extend.js';
+import { TextRegex } from '../utils/regex.js';
 
 export const text = extend(
   {

@@ -1,5 +1,5 @@
-import SimpleMarkdown from 'simple-markdown';
-import { UserMentionRegex } from '../../utils/regex';
+import SimpleMarkdown = require('simple-markdown'); 
+import { UserMentionRegex } from '../../utils/regex.js';
 
 export const user: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.strong.order,

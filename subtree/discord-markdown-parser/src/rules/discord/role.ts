@@ -1,5 +1,4 @@
-import SimpleMarkdown from 'simple-markdown';
-import { RoleMentionRegex } from '../../utils/regex';
+import SimpleMarkdown = require('simple-markdown');import { RoleMentionRegex } from '../../utils/regex.js';
 
 export const role: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.strong.order,

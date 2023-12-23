@@ -1,5 +1,4 @@
-import SimpleMarkdown from 'simple-markdown';
-import { EveryoneRegex } from '../../utils/regex';
+import SimpleMarkdown = require('simple-markdown');import { EveryoneRegex } from '../../utils/regex.js';
 
 export const everyone: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.strong.order,

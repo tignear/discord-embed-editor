@@ -1,5 +1,5 @@
-import SimpleMarkdown from 'simple-markdown';
-import { EmoticonRegex } from '../utils/regex';
+import SimpleMarkdown = require('simple-markdown');
+import { EmoticonRegex } from '../utils/regex.js';
 
 export const emoticon: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.text.order,

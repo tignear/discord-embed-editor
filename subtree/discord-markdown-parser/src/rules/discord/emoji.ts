@@ -1,5 +1,4 @@
-import SimpleMarkdown from 'simple-markdown';
-import { EmojiRegex } from '../../utils/regex';
+import SimpleMarkdown = require('simple-markdown');import { EmojiRegex } from '../../utils/regex.js';
 
 export const emoji: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.strong.order,

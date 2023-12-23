@@ -1,4 +1,4 @@
-import { parse } from '../src';
+import { parse } from '../src/index.js';
 
 describe('Parse', () => {
   test('GIVEN a normal string THEN parse is as a string', () => {

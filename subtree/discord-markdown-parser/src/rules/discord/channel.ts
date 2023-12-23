@@ -1,5 +1,4 @@
-import SimpleMarkdown from 'simple-markdown';
-import { ChannelMentionRegex } from '../../utils/regex';
+import SimpleMarkdown = require('simple-markdown');import { ChannelMentionRegex } from '../../utils/regex.js';
 
 export const channel: SimpleMarkdown.ParserRule = {
   order: SimpleMarkdown.defaultRules.strong.order,

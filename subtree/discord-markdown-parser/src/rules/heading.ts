@@ -1,6 +1,6 @@
-import SimpleMarkdown from 'simple-markdown';
-import { extend } from '../utils/extend';
-import { HeadingRegex } from '../utils/regex';
+import SimpleMarkdown = require('simple-markdown');
+import { extend } from '../utils/extend.js';
+import { HeadingRegex } from '../utils/regex.js';
 
 export const heading = extend(
   {
