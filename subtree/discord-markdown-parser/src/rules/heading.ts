@@ -5,7 +5,6 @@ import { HeadingRegex } from '../utils/regex.js';
 export const heading = extend(
   {
     match: function (source, state) {
-      console.log("heading", state)
       if (state.disallowBlock) {
         return null;
       }

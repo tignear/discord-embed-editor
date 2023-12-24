@@ -1,4 +1,4 @@
-import SimpleMarkdown = require('simple-markdown');
+import SimpleMarkdown from 'simple-markdown';
 
 // import all the rules
 import { everyone } from './rules/discord/everyone.js';
@@ -41,6 +41,7 @@ export const rules = {
   spoiler,
   heading,
   list,
+  link: SimpleMarkdown.defaultRules.link,
 
   // discord specific
   user,
@@ -53,24 +54,16 @@ export const rules = {
   timestamp,
 };
 
-// for use in webhooks, embeds, etc
-export const rulesExtended = {
-  ...rules,
-  link: SimpleMarkdown.defaultRules.link,
-};
 
 // build the parser
 const parser = SimpleMarkdown.parserFor(rules);
-const parserExtended = SimpleMarkdown.parserFor(rulesExtended);
 
 // parse function
-export function parse(input: string, type: 'normal' | 'extended' = 'normal') {
-  if (type === 'normal') return parser(input, { inline: true });
-  else return parserExtended(input, { inline: true });
+export function parse(input: string) {
+  return parser(input, { inline: true });
 }
 
 export default parse;
 
 // some types
 export type RuleTypes = keyof typeof rules;
-export type RuleTypesExtended = keyof typeof rulesExtended;

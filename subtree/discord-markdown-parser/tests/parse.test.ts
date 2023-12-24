@@ -134,43 +134,8 @@ describe('Parse', () => {
     ]);
   });
 
-  test('GIVEN a string with a masked link without extended md support THEN do not parse as masked link', () => {
-    expect(parse('See [google](https://google.com)')).toEqual([
-      {
-        type: 'text',
-        content: 'See ',
-      },
-      {
-        type: 'text',
-        content: '[google',
-      },
-      {
-        type: 'text',
-        content: ']',
-      },
-      {
-        type: 'text',
-        content: '(',
-      },
-      {
-        type: 'url',
-        target: 'https://google.com',
-        content: [
-          {
-            type: 'text',
-            content: 'https://google.com',
-          },
-        ],
-      },
-      {
-        type: 'text',
-        content: ')',
-      },
-    ]);
-  });
-
   test('GIVEN a string with a masked link with extended md support THEN parse as masked link', () => {
-    expect(parse('See [google](https://google.com)', 'extended')).toEqual([
+    expect(parse('See [google](https://google.com)')).toEqual([
       {
         type: 'text',
         content: 'See ',
