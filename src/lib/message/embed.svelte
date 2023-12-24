@@ -1,6 +1,7 @@
 <script lang="ts">
 	import EmbedFields from './embed-fields.svelte';
 	import type { APIEmbed } from 'discord-api-types/v10';
+	import Markdown from './markdown/markdown.svelte';
 	export let data: APIEmbed;
 	$: author = data.author;
 </script>
@@ -29,7 +30,7 @@
 				{/if}
 				{#if data.description != null}
 					<div class="embed-description embed-margin">
-						{data.description}
+						<Markdown content={data.description}> </Markdown>
 					</div>
 				{/if}
 				<EmbedFields fields={data.fields ?? []}></EmbedFields>
