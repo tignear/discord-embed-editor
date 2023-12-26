@@ -101,7 +101,6 @@ export const list = extend(
           // remove the bullet:
           .replace(LIST_ITEM_PREFIX_R, '');
         const adjustedContent = content.replace(LIST_ITEM_END_R, "");
-        console.log(adjustedContent);
         const result = parse(adjustedContent, state);
         return result;
       });
