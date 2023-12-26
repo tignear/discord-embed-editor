@@ -5,4 +5,13 @@
 	$: node = parse(content);
 </script>
 
-<Node {node}></Node>
+<div>
+	<Node {node}></Node>
+</div>
+
+<style>
+	div {
+		font-size: 1rem;
+		line-height: 1.375em;
+	}
+</style>
