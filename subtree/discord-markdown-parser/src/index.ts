@@ -21,6 +21,7 @@ import { url } from './rules/url.js';
 import { em } from './rules/em.js';
 import { br } from './rules/br.js';
 import { list } from './rules/list.js';
+import { slashCommand } from './rules/discord/slashCommand.js';
 
 // rules normal users can use
 export const rules = {
@@ -52,6 +53,7 @@ export const rules = {
   here,
   twemoji,
   timestamp,
+  slashCommand
 };
 
 

@@ -115,6 +115,52 @@ describe('Parse', () => {
     ]);
   });
 
+  test('GIVEN a string with a slash command THEN parse the slash command', () => {
+    expect(parse('Use </airhorn:816437322781949972>')).toEqual([
+      {
+        type: 'text',
+        content: 'Use ',
+      },
+      {
+        id: '816437322781949972',
+        name: 'airhorn',
+        subcommand: undefined,
+        subcommandGroup: undefined,
+        type: 'slashCommand',
+      },
+    ]);
+  });
+
+  test('GIVEN a string with a slash command(subcommand) THEN parse the slash command', () => {
+    expect(parse('Use </airhorn subcommand:816437322781949972>')).toEqual([
+      {
+        type: 'text',
+        content: 'Use ',
+      },
+      {
+        id: '816437322781949972',
+        name: 'airhorn',
+        subcommand: 'subcommand',
+        subcommandGroup: undefined,
+        type: 'slashCommand',
+      },
+    ]);
+  });
+  test('GIVEN a string with a slash command(grouped) THEN parse the slash command', () => {
+    expect(parse('Use </airhorn group subcommand:816437322781949972>')).toEqual([
+      {
+        type: 'text',
+        content: 'Use ',
+      },
+      {
+        id: '816437322781949972',
+        name: 'airhorn',
+        subcommand: 'subcommand',
+        subcommandGroup: 'group',
+        type: 'slashCommand',
+      },
+    ]);
+  });
   test('GIVEN a string with a link THEN parse the link', () => {
     expect(parse('See https://google.com')).toEqual([
       {
