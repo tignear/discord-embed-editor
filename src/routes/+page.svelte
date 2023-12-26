@@ -41,6 +41,25 @@ function $initHighlight(block, cls) {
 > Pink Lemonade
 Raspberry Lemonade
 Strawberry Lemonade
+## mentions
+everyone: @everyone
+here: @here
+user: <@408939071289688064>
+user(!): <@!408939071289688064>
+role: <@&708713933829046293>
+channel: <#494780225280802819> 
+slash command: </airhorn:816437322781949972>
+standard emoji: 💯
+custom emoji: <:mmLol:216154654256398347>
+custom emoji(animated): <a:b1nzy:392938283556143104>
+unix timestamp: <t:1618953630>
+unix timestamp(t): <t:1618953630:t>
+unix timestamp(T): <t:1618953630:T>
+unix timestamp(d): <t:1618953630:d>
+unix timestamp(D): <t:1618953630:D>
+unix timestamp(f): <t:1618953630:f>
+unix timestamp(F): <t:1618953630:F>
+unix timestamp(R): <t:1703605838:R>
 
 autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-`;
 	let timestamp = 'Today at 08:42';

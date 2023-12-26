@@ -1,15 +1,15 @@
 <!-- https://github.com/metonym/svelte-highlight/blob/0dfb16ab9750ad1a54ad4af5b96a7e216d47d0df/src/LangTag.svelte -->
-<script>
+<script lang="ts">
 	// @ts-check
 
 	/** @type {any} */
-	export let code;
+	export let code: string;
 
 	/** @type {string} */
-	export let highlighted;
+	export let highlighted: string|null|undefined;
 
 	/** @type {string} */
-	export let languageName = 'plaintext';
+	export let languageName: string = 'plaintext';
 
 	/** @type {boolean} */
 	export let langtag = false;
