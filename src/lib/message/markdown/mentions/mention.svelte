@@ -5,10 +5,7 @@
 
 <style>
 	span {
-		font-weight: 500;
 		filter: saturate(1);
-	}
-	span {
 		border-radius: 3px;
 		padding: 0 2px;
 		font-weight: 500;

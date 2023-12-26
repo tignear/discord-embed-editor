@@ -49,6 +49,8 @@ user(!): <@!408939071289688064>
 role: <@&708713933829046293>
 channel: <#494780225280802819> 
 slash command: </airhorn:816437322781949972>
+slash command: </airhorn subcommand:816437322781949972>
+slash command: </airhorn group subcommand:816437322781949972>
 standard emoji: 💯
 custom emoji: <:mmLol:216154654256398347>
 custom emoji(animated): <a:b1nzy:392938283556143104>

@@ -13,6 +13,7 @@ import _Channel from "./mentions/channel.svelte";
 import StandardEmoji from "./standard-emoji.svelte";
 import CustomEmoji from "./custom-emoji.svelte";
 import Timestamp from "./mentions/timestamp.svelte";
+import SlashCommand from "./mentions/slash-command.svelte";
 
 type SvelteComponentFactory = { new(options: ComponentConstructorOptions): SvelteComponent };
 const Basic = _Basic as SvelteComponentFactory;
@@ -51,4 +52,5 @@ export const nodeRenderer: Record<string,SvelteComponentFactory> ={
   user: User,
   role: User,
   channel: Channel,
+  slashCommand: SlashCommand as SvelteComponentFactory,
 }
