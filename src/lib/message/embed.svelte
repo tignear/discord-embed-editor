@@ -4,33 +4,36 @@
 	import Markdown from './markdown/markdown.svelte';
 	export let data: APIEmbed;
 	$: author = data.author;
+	function timestamp(timestamp: string | undefined) {
+		return timestamp != null ? new Date(timestamp) : '';
+	}
 </script>
 
 <div class="container">
 	<article
 		class="embed-wrapper"
-		style:border-color={'#' + data.color?.toString(16).padStart(6, '0') ?? '000000'}
+		style:border-color={'#' + (data.color?.toString(16).padStart(6, '0') ?? '000000')}
 	>
 		<div class="grid-container">
 			<div class="grid" class:thumbnail={data.thumbnail != null}>
 				{#if author != null}
 					<div class="embed-author">
-						{#if author.icon_url != null}
+						{#if author.icon_url != null && author.icon_url != ''}
 							<img class="embed-author-icon" src={author.icon_url} alt="" />
 						{/if}
-						{#if author.name != null}
+						{#if author.name != null && author.name != ''}
 							<span class="embed-author-name">{author.name}</span>
 						{/if}
 					</div>
 				{/if}
-				{#if data.title != null}
+				{#if data.title != null && data.title != ''}
 					<div class="embed-title embed-margin">
 						{data.title}
 					</div>
 				{/if}
-				{#if data.description != null}
+				{#if data.description != null && data.description != ''}
 					<div class="embed-description embed-margin">
-						<Markdown content={data.description}> </Markdown>
+						<Markdown content={data.description}></Markdown>
 					</div>
 				{/if}
 				<EmbedFields fields={data.fields ?? []}></EmbedFields>
@@ -46,15 +49,15 @@
 				{/if}
 				{#if data.footer != null || data.timestamp != null}
 					<div class="embed-footer embed-margin">
-						{#if data.footer?.icon_url != null}
+						{#if data.footer?.icon_url != null && data.footer?.icon_url != ''}
 							<img class="embed-footer-icon" src={data.footer.icon_url} alt="" />
 						{/if}
 						<span class="embed-footer-text">
 							{data.footer?.text ?? ''}
-							{#if data.timestamp != null && data.footer != null}
+							{#if data.timestamp != null && data.timestamp != '' && data.footer != null}
 								<span class="embed-footer-separator">•</span>
 							{/if}
-							{data.timestamp ?? ''}
+							{timestamp(data.timestamp)}
 						</span>
 					</div>
 				{/if}

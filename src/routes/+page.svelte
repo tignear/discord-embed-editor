@@ -1,8 +1,8 @@
 <script lang="ts">
+	import Editor from '$lib/editor.svelte';
 	import Message from '$lib/message/message.svelte';
 	import type { APIEmbed } from 'discord-api-types/v10';
-	let content = 
-`# Big Header
+	let content = `# Big Header
 ## Smaller Header
 ### Even Smaller Header
 line1
@@ -70,8 +70,9 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 		{
 			title: 'にゃーん',
 			color: 0xffffff,
-			description: 'this is embed description\n*italic1* _italic2_ **bold** ***bold_italic*** __underline__ ~~strike~~',
-			timestamp: '01/12/2023 00:00',
+			description:
+				'this is embed description\n*italic1* _italic2_ **bold** ***bold_italic*** __underline__ ~~strike~~',
+			timestamp: new Date().toISOString(),
 			author: {
 				name: 'tig',
 				icon_url:
@@ -128,4 +129,20 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 	];
 </script>
 
-<Message {username} {content} {timestamp} {embeds}></Message>
+<div style="display: flex;margin: 0">
+	<div class="embed-editor">
+		<h2>Editor</h2>
+		<Editor bind:content bind:embeds></Editor>
+	</div>
+	<div style="flex: 1;padding: 0; margin: 0;height: 100svh;overflow-y: auto;">
+		<Message {username} {content} {timestamp} {embeds}></Message>
+	</div>
+</div>
+<style>
+	.embed-editor{
+		flex: 1;
+		height: 100svh;
+		padding: 0 8px;
+		overflow-y: auto;
+	}
+</style>
