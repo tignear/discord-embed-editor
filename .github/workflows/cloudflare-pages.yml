@@ -30,3 +30,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           projectName: discord-embed-editor
           directory: .svelte-kit/cloudflare
+          branch: master
