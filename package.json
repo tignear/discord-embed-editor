@@ -6,7 +6,7 @@
 		"dev": "vite dev",
 		"smui-theme-light": "smui-theme compile static/smui.css -i src/theme -i ./node_modules",
 		"smui-theme-dark": "smui-theme compile static/smui-dark.css -i src/theme/dark -i ./node_modules",
-		"build": "cd subtree/discord-markdown-parser&pnpm install&pnpm run build&cd ../../&vite build",
+		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
