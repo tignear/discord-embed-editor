@@ -1,0 +1,24 @@
+name: Cloudflare Pages
+
+on: [push]
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build Markdown Parser
+        run: cd subtree/discord-markdown-parser && pnpm install && pnpm run build && cd ../../
+      - name: Build
+        run: pnpm run build
+      - name: Publish
+        uses: cloudflare/pages-action@1
+        with:
+          accountId: f4d756f518bf3fb306b9a0cf16b107e6
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          projectName: discord-embed-editor
+          directory: .svelte-kit/cloudflare
