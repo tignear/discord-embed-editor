@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Image from "$lib/assets/image.jpg";
+	import Image from '$lib/assets/image.jpg';
 	import Editor from '$lib/editor.svelte';
 	import Message from '$lib/message/message.svelte';
 	import type { APIEmbed } from 'discord-api-types/v10';
@@ -67,7 +67,7 @@ unix timestamp(R): <t:1703605838:R>
 
 autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-`;
 	let timestamp = 'Today at 08:42';
-	let username = '';
+	let username: string | undefined = undefined;
 	let embeds: APIEmbed[] = [
 		{
 			title: 'にゃーん',
@@ -140,8 +140,9 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 		<Message {username} {content} {timestamp} {embeds} {icon}></Message>
 	</div>
 </div>
+
 <style>
-	.embed-editor{
+	.embed-editor {
 		flex: 1;
 		height: 100svh;
 		padding: 0 8px;

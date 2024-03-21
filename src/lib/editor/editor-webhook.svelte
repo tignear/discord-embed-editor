@@ -7,7 +7,7 @@
 	export let webhook_url = '';
 	export let content = '';
 	export let embeds: APIEmbed[] = [];
-	export let username: string = '';
+	export let username: string | undefined;
 	export let icon: string = '';
 	let message = '';
 	let sending = false;
@@ -39,7 +39,8 @@
 
 <div>
 	<Textfield bind:value={webhook_url} label="Webhook URL" style="width: 100%;" required></Textfield>
-	<Textfield bind:value={username} label="Username" style="width: 100%"></Textfield>
+	<Textfield bind:value={username} label="Username" style="width: 100%" input$emptyValueUndefined
+	></Textfield>
 	<Textfield bind:value={icon} label="Avatar URL" style="width: 100%"></Textfield>
 
 	<Snackbar bind:this={snackbar} labelText={message} timeoutMs={-1}>

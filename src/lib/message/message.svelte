@@ -8,7 +8,7 @@
 	export let content: string = '';
 	export let icon: string  = '';
 	export let timestamp: string;
-	export let username: string;
+	export let username: string|undefined;
 	export let embeds: APIEmbed[] = [];
 </script>
 
