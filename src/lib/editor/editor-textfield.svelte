@@ -2,17 +2,25 @@
 	import Textfield from '@smui/textfield';
 	import CharacterCounter from '@smui/textfield/character-counter';
 	export let label: string;
-	export let value: string|undefined;
+	export let value: string | undefined;
 	export let maxLength: number | undefined = undefined;
 	export let textarea: boolean = false;
+	export let ty: string = 'text';
 </script>
 
 <div class="editor-textfield-wrapper">
 	{#if maxLength == null}
-		<Textfield {textarea} bind:value {label} class="editor-textfield"></Textfield>
+		<Textfield {textarea} bind:value {label} class="editor-textfield" type={ty}></Textfield>
 	{:else}
-		<Textfield {textarea} bind:value {label} class="editor-textfield" input$maxlength={maxLength}>
-			<CharacterCounter slot="helper">0 / 256</CharacterCounter>
+		<Textfield
+			{textarea}
+			bind:value
+			{label}
+			class="editor-textfield"
+			input$maxlength={maxLength}
+			type={ty}
+		>
+			<CharacterCounter slot="helper">0 / {maxLength}</CharacterCounter>
 		</Textfield>
 	{/if}
 </div>

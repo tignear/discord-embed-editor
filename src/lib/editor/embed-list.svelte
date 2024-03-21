@@ -41,6 +41,7 @@
 
 <div>
 	<Card>
+		<h3>Embeds</h3>
 		<Content>
 			<TabBar tabs={[...embeds.map((_, idx) => String(idx))]} let:tab bind:active>
 				<Tab {tab} minWidth>

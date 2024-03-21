@@ -14,9 +14,9 @@
 	let activeControl = 'Webhook';
 </script>
 
-<div class="embed-editor">
-	<h3>Content</h3>
+<div>
 	<Card>
+		<h3>Content</h3>
 		<Textfield
 			textarea
 			bind:value={content}
@@ -29,10 +29,9 @@
 		</Textfield>
 	</Card>
 
-	<h3>Embeds</h3>
 	<EmbedList bind:embeds></EmbedList>
-	<h3>送信</h3>
 	<Card>
+		<h3>送信</h3>
 		<Content>
 			<TabBar tabs={['Webhook']} let:tab bind:active={activeControl}>
 				<Tab {tab} minWidth>

@@ -2,10 +2,11 @@
 	import EmbedFields from './embed-fields.svelte';
 	import type { APIEmbed } from 'discord-api-types/v10';
 	import Markdown from './markdown/markdown.svelte';
+	import moment from 'moment';
 	export let data: APIEmbed;
 	$: author = data.author;
 	function timestamp(timestamp: string | undefined) {
-		return timestamp != null ? new Date(timestamp) : '';
+		return timestamp != null && timestamp != '' ? moment(timestamp).format("L HH:mm") : '';
 	}
 </script>
 

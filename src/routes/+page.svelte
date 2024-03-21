@@ -2,6 +2,7 @@
 	import Editor from '$lib/editor.svelte';
 	import Message from '$lib/message/message.svelte';
 	import type { APIEmbed } from 'discord-api-types/v10';
+	import moment from 'moment';
 	let content = `# Big Header
 ## Smaller Header
 ### Even Smaller Header
@@ -72,7 +73,7 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 			color: 0xffffff,
 			description:
 				'this is embed description\n*italic1* _italic2_ **bold** ***bold_italic*** __underline__ ~~strike~~',
-			timestamp: new Date().toISOString(),
+			timestamp: undefined,
 			author: {
 				name: 'tig',
 				icon_url:

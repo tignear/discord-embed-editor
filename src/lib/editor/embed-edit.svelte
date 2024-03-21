@@ -5,13 +5,19 @@
 	import FieldList from './field-list.svelte';
 	import EmbedAuthor from './embed-author.svelte';
 	import EditorTextfield from './editor-textfield.svelte';
+	import moment from 'moment';
 	export let embed: APIEmbed;
 	let image: string = embed.image?.url ?? '';
 	let thumbnail: string = embed.thumbnail?.url ?? '';
+	let footer_text = embed.footer?.text ?? '';
+	let footer_icon_url = embed.footer?.icon_url ?? '';
+	let timestamp = embed.timestamp ?? '';
 	embed.url ??= '';
 	$: {
 		embed.image = { url: image };
 		embed.thumbnail = { url: thumbnail };
+		embed.footer = { text: footer_text, icon_url: footer_icon_url };
+		embed.timestamp = timestamp != '' ? moment(timestamp).utc().toISOString() : '';
 	}
 </script>
 
@@ -33,6 +39,8 @@
 			<CharacterCounter slot="internalCounter">0 / 4000</CharacterCounter>
 		</Textfield>
 	</div>
-
+	<EditorTextfield bind:value={footer_text} label="Footer" maxLength={2048}></EditorTextfield>
+	<EditorTextfield bind:value={footer_icon_url} label="Footer Icon URL"></EditorTextfield>
+	<EditorTextfield bind:value={timestamp} label="Timestamp" ty="datetime-local"></EditorTextfield>
 	<FieldList bind:fields={embed.fields}></FieldList>
 </div>
