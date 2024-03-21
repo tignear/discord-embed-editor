@@ -1,11 +1,12 @@
 <script lang="ts">
-	export let username = 'tig';
+	const DEFAULT_USERNAME = 'Spidey Bot';
+	export let username = '';
 	export let timestamp: string;
 </script>
 
 <span class="header">
 	<span class="username-wrapper">
-		<span class="username">{username}</span>
+		<span class="username">{username.length ? username : DEFAULT_USERNAME}</span>
 	</span>
 	<span class="timestamp-wrapper">
 		<span class="timestamp">

@@ -6,7 +6,7 @@
 	import type { APIEmbed } from 'discord-api-types/v10';
 
 	export let content: string = '';
-	export let icon: string | undefined = undefined;
+	export let icon: string  = '';
 	export let timestamp: string;
 	export let username: string;
 	export let embeds: APIEmbed[] = [];

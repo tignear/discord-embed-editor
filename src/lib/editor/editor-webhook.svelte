@@ -5,10 +5,12 @@
 	import IconButton from '@smui/icon-button';
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
 	import Textfield from '@smui/textfield';
-	import type { APIEmbed } from 'discord-api-types/v10';
+	import type { APIEmbed, RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
 	export let webhook_url = '';
 	export let content = '';
 	export let embeds: APIEmbed[] = [];
+	export let username: string = '';
+	export let icon: string = '';
 	let message = '';
 	let sending = false;
 	let snackbar: Snackbar;
@@ -17,8 +19,9 @@
 			body: JSON.stringify({
 				content,
 				embeds,
-				nonce: String(Math.floor(Date.now() / 1000))
-			}),
+				avatar_url: icon,
+				username
+			} satisfies RESTPostAPIWebhookWithTokenJSONBody),
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -52,6 +55,9 @@
 			}
 		}}>送信</Button
 	>
+	<Textfield bind:value={username} label="Username" style="width: 100%"></Textfield>
+	<Textfield bind:value={icon} label="Avatar URL" style="width: 100%"></Textfield>
+
 	<Snackbar bind:this={snackbar} labelText={message} timeoutMs={-1}>
 		<Label />
 		<Actions>

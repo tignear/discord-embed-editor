@@ -10,13 +10,15 @@
 	import TabBar from '@smui/tab-bar';
 	import Tab, { Label } from '@smui/tab';
 	export let content = '';
+	export let icon = '';
+	export let username = '';
 	export let embeds: APIEmbed[] = [];
 	let activeControl = 'Webhook';
 </script>
 
 <div>
+	<h3>Content</h3>
 	<Card>
-		<h3>Content</h3>
 		<Textfield
 			textarea
 			bind:value={content}
@@ -30,8 +32,8 @@
 	</Card>
 
 	<EmbedList bind:embeds></EmbedList>
+	<h3>送信</h3>
 	<Card>
-		<h3>送信</h3>
 		<Content>
 			<TabBar tabs={['Webhook']} let:tab bind:active={activeControl}>
 				<Tab {tab} minWidth>
@@ -39,7 +41,7 @@
 				</Tab>
 			</TabBar>
 			{#if activeControl === 'Webhook'}
-				<EditorWebhook {content} {embeds}></EditorWebhook>
+				<EditorWebhook {content} {embeds} bind:icon bind:username></EditorWebhook>
 			{/if}
 		</Content>
 	</Card>

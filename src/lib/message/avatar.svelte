@@ -1,8 +1,9 @@
 <script lang="ts">
-	export let src: string = 'https://cdn.discordapp.com/embed/avatars/0.png';
+	const DEFAULT_AVATAR_URL = 'https://cdn.discordapp.com/embed/avatars/0.png';
+	export let src: string = DEFAULT_AVATAR_URL;
 </script>
 
-<img {src} alt="" />
+<img src={src != '' ? src : DEFAULT_AVATAR_URL} alt="" />
 
 <style>
 	img {
