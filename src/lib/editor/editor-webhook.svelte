@@ -30,7 +30,7 @@
 			snackbar.open();
 		} else {
 			const err = await resp.json();
-			message = err.message;
+			message = `${resp.status}: ${err.message ? err.message : resp.statusText}`;
 			snackbar.open();
 			console.error(err);
 		}
@@ -38,21 +38,7 @@
 </script>
 
 <div>
-	<Textfield bind:value={webhook_url} label="Webhook URL" style="width: 80%"></Textfield>
-	<Button
-		disabled={sending}
-		on:click={async () => {
-			if (sending) {
-				return;
-			}
-			sending = true;
-			try {
-				send();
-			} finally {
-				sending = false;
-			}
-		}}>送信</Button
-	>
+	<Textfield bind:value={webhook_url} label="Webhook URL" style="width: 100%;" required></Textfield>
 	<Textfield bind:value={username} label="Username" style="width: 100%"></Textfield>
 	<Textfield bind:value={icon} label="Avatar URL" style="width: 100%"></Textfield>
 
@@ -62,4 +48,20 @@
 			<IconButton class="material-icons" title="Dismiss">close</IconButton>
 		</Actions>
 	</Snackbar>
+	<div style="display: flex; justify-content: flex-end; margin: 4px;">
+		<Button
+			disabled={sending || webhook_url == ''}
+			on:click={async () => {
+				if (sending) {
+					return;
+				}
+				sending = true;
+				try {
+					send();
+				} finally {
+					sending = false;
+				}
+			}}>送信</Button
+		>
+	</div>
 </div>
