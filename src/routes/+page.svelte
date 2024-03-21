@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Image from "$lib/assets/image.jpg";
 	import Editor from '$lib/editor.svelte';
 	import Message from '$lib/message/message.svelte';
 	import type { APIEmbed } from 'discord-api-types/v10';
@@ -117,10 +118,10 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 				text: 'aaa'
 			},
 			image: {
-				url: 'https://media.discordapp.net/attachments/494780225280802819/1185953833835298847/image.png?ex=65917c93&is=657f0793&hm=7b4cfd57db6f74cd917f6a156fbb172c93ab0652fcf93671fe8062fe04964e0b&=&format=webp&quality=lossless&width=1440&height=17'
+				url: Image
 			},
 			thumbnail: {
-				url: 'https://lh3.googleusercontent.com/a-/AOh14GgdSSCo3ooeyyoaIvFBPykXmIVyprXdJ7IImAUi#.png'
+				url: Image
 			}
 		},
 		{

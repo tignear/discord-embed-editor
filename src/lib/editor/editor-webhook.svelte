@@ -1,7 +1,5 @@
 <script lang="ts">
 	import Button from '@smui/button';
-
-	import FormField from '@smui/form-field';
 	import IconButton from '@smui/icon-button';
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
 	import Textfield from '@smui/textfield';
