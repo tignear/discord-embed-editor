@@ -6,7 +6,7 @@
 	export let data: APIEmbed;
 	$: author = data.author;
 	function timestamp(timestamp: string | undefined) {
-		return timestamp != null && timestamp != '' ? moment(timestamp).format("L HH:mm") : '';
+		return timestamp != null && timestamp != '' ? moment(timestamp).format('L HH:mm') : '';
 	}
 </script>
 
@@ -23,13 +23,30 @@
 							<img class="embed-author-icon" src={author.icon_url} alt="" />
 						{/if}
 						{#if author.name != null && author.name != ''}
-							<span class="embed-author-name">{author.name}</span>
+							{#if author.url != null && author.name != ''}
+								<a
+									href={author.url}
+									class="embed-author-link"
+									rel="noreferrer noopener"
+									target="_blank"
+								>
+									<span class="embed-author-name">{author.name}</span>
+								</a>
+							{:else}
+								<span class="embed-author-name">{author.name}</span>
+							{/if}
 						{/if}
 					</div>
 				{/if}
 				{#if data.title != null && data.title != ''}
 					<div class="embed-title embed-margin">
-						{data.title}
+						{#if data.url != null && data.url != ''}
+							<a href={data.url} class="embed-url" rel="noreferrer noopener" target="_blank">
+								{data.title}
+							</a>
+						{:else}
+							{data.title}
+						{/if}
 					</div>
 				{/if}
 				{#if data.description != null && data.description != ''}
@@ -99,6 +116,19 @@
 	.embed-author {
 		display: flex;
 		justify-content: left;
+	}
+	.embed-url {
+		text-decoration: inherit;
+	}
+	.embed-url:hover {
+		text-decoration: underline;
+	}
+	.embed-author-link {
+		color: inherit;
+		text-decoration: inherit;
+	}
+	.embed-author-link:hover {
+		text-decoration: underline;
 	}
 	.embed-author-icon {
 		margin-right: 8px;

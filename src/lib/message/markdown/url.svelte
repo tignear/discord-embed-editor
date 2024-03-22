@@ -5,9 +5,13 @@
 </script>
 
 <a href={node.target} rel="noreferrer noopener" target="_blank"><slot /></a>
+
 <style>
-	a{
+	a {
 		color: rgb(0, 168, 252);
 		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
 	}
 </style>
