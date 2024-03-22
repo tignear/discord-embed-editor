@@ -7,10 +7,12 @@
 	import EditorWebhook from './editor/editor-webhook.svelte';
 	import TabBar from '@smui/tab-bar';
 	import Tab, { Label } from '@smui/tab';
+	import Attachment from './editor/attachment.svelte';
 	export let content = '';
 	export let icon = '';
-	export let username: string|undefined = undefined;
+	export let username: string | undefined = undefined;
 	export let embeds: APIEmbed[] = [];
+	export let files: File[] = [];
 	let activeControl = 'Webhook';
 </script>
 
@@ -30,6 +32,13 @@
 	</Card>
 
 	<EmbedList bind:embeds></EmbedList>
+
+	<h3>Attachments</h3>
+	<Card>
+		<Content>
+			<Attachment bind:files></Attachment>
+		</Content>
+	</Card>
 	<h3>送信</h3>
 	<Card>
 		<Content>
@@ -39,7 +48,7 @@
 				</Tab>
 			</TabBar>
 			{#if activeControl === 'Webhook'}
-				<EditorWebhook {content} {embeds} bind:icon bind:username></EditorWebhook>
+				<EditorWebhook {content} {embeds} bind:icon bind:username {files}></EditorWebhook>
 			{/if}
 		</Content>
 	</Card>

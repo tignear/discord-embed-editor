@@ -9,21 +9,36 @@
 	export let embeds: APIEmbed[] = [];
 	export let username: string | undefined;
 	export let icon: string = '';
+	export let files: File[];
 	let message = '';
 	let sending = false;
 	let snackbar: Snackbar;
 	async function send() {
-		const resp = await fetch(webhook_url, {
-			body: JSON.stringify({
+		const body = new FormData();
+		body.set(
+			'payload_json',
+			JSON.stringify({
 				content,
 				embeds,
 				avatar_url: icon,
+				attachments: files.map((file, idx) => {
+					return {
+						id: idx,
+						description: file.name,
+						filename: file.name
+					};
+				}),
 				username
-			} satisfies RESTPostAPIWebhookWithTokenJSONBody),
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			}
+			} satisfies RESTPostAPIWebhookWithTokenJSONBody)
+		);
+		let idx = 0;
+		for (const file of files) {
+			body.set(`files[${idx}]`, file);
+			++idx;
+		}
+		const resp = await fetch(webhook_url, {
+			body,
+			method: 'POST'
 		});
 		if (resp.status === 204) {
 			message = '送信しました';
