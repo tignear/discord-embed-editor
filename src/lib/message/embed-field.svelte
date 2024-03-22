@@ -8,6 +8,8 @@
 </script>
 
 <script lang="ts">
+	import Markdown from './markdown/markdown.svelte';
+
 	export let name: FieldData['name'];
 	export let value: FieldData['value'];
 	export let columnStart: number;
@@ -16,7 +18,7 @@
 
 <div class="embed-field" style:grid-column="{columnStart.toString()}/{columnEnd.toString()}">
 	<div class="embed-field-name">{name}</div>
-	<div class="embed-field-value">{value}</div>
+	<div class="embed-field-value"><Markdown content={value} target="embedField"></Markdown></div>
 </div>
 
 <style>

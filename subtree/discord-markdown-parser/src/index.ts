@@ -23,8 +23,8 @@ import { br } from './rules/br.js';
 import { list } from './rules/list.js';
 import { slashCommand } from './rules/discord/slashCommand.js';
 
-// rules normal users can use
-export const rules = {
+
+export const rulesForEmbedField = {
   blockQuote,
   codeBlock,
   newline: SimpleMarkdown.defaultRules.newline,
@@ -40,7 +40,6 @@ export const rules = {
   emoticon,
   br,
   spoiler,
-  heading,
   list,
   link: SimpleMarkdown.defaultRules.link,
 
@@ -54,18 +53,30 @@ export const rules = {
   twemoji,
   timestamp,
   slashCommand
-};
+}
 
+// rules normal users can use
+export const rules = {
+  ...rulesForEmbedField,
+  heading,
+};
 
 // build the parser
 const parser = SimpleMarkdown.parserFor(rules);
+const parserForEmbedField = SimpleMarkdown.parserFor(rulesForEmbedField);
 
 // parse function
-export function parse(input: string) {
-  return parser(input, { inline: true });
+export function parse(input: string, target: "content" | "embedField" = "content") {
+  if (target === "content") {
+    return parser(input, { inline: true });
+  } else {
+    return parserForEmbedField(input, { inline: true });
+  }
 }
+
 
 export default parse;
 
 // some types
 export type RuleTypes = keyof typeof rules;
+export type EmbedFieldRuleTypes = keyof typeof rulesForEmbedField;

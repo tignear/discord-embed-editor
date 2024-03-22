@@ -2,7 +2,8 @@
 	import parse from 'discord-markdown-parser';
 	import Node from './node.svelte';
 	export let content: string;
-	$: node = parse(content);
+	export let target: 'content' | 'embedField' = 'content';
+	$: node = parse(content, target);
 </script>
 
 <div>
