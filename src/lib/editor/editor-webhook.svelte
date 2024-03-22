@@ -4,12 +4,13 @@
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
 	import Textfield from '@smui/textfield';
 	import type { APIEmbed, RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
+	import type { DiscordFileData } from './attachment.svelte';
 	export let webhook_url = '';
 	export let content = '';
 	export let embeds: APIEmbed[] = [];
 	export let username: string | undefined;
 	export let icon: string = '';
-	export let files: File[];
+	export let files: DiscordFileData[];
 	let message = '';
 	let sending = false;
 	let snackbar: Snackbar;
@@ -24,8 +25,8 @@
 				attachments: files.map((file, idx) => {
 					return {
 						id: idx,
-						description: file.name,
-						filename: file.name
+						description: file.description,
+						filename: file.file.name
 					};
 				}),
 				username
@@ -33,15 +34,15 @@
 		);
 		let idx = 0;
 		for (const file of files) {
-			body.set(`files[${idx}]`, file);
+			body.set(`files[${idx}]`, file.file);
 			++idx;
 		}
 		const resp = await fetch(webhook_url, {
 			body,
 			method: 'POST'
 		});
-		if (resp.status === 204) {
-			message = '送信しました';
+		if (resp.status === 200 || resp.status === 204) {
+			message = resp.status + ': 送信しました';
 			snackbar.open();
 		} else {
 			const err = await resp.json();

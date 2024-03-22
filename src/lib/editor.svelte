@@ -7,12 +7,12 @@
 	import EditorWebhook from './editor/editor-webhook.svelte';
 	import TabBar from '@smui/tab-bar';
 	import Tab, { Label } from '@smui/tab';
-	import Attachment from './editor/attachment.svelte';
+	import Attachment, { type DiscordFileData } from './editor/attachment.svelte';
 	export let content = '';
 	export let icon = '';
 	export let username: string | undefined = undefined;
 	export let embeds: APIEmbed[] = [];
-	export let files: File[] = [];
+	export let files: DiscordFileData[] = [];
 	let activeControl = 'Webhook';
 </script>
 
