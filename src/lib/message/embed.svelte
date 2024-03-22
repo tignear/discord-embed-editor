@@ -23,7 +23,7 @@
 							<img class="embed-author-icon" src={author.icon_url} alt="" />
 						{/if}
 						{#if author.name != null && author.name != ''}
-							{#if author.url != null && author.name != ''}
+							{#if author.url != null && author.url != ''}
 								<a
 									href={author.url}
 									class="embed-author-link"
