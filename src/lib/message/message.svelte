@@ -10,6 +10,8 @@
 	export let timestamp: string;
 	export let username: string|undefined;
 	export let embeds: APIEmbed[] = [];
+	export let attachments: File[] = [];
+
 </script>
 
 <div class="message">
@@ -19,7 +21,7 @@
 
 	<div class="message-accessories">
 		{#each embeds as embed}
-			<Embed data={embed}></Embed>
+			<Embed data={embed} {attachments}></Embed>
 		{/each}
 	</div>
 </div>

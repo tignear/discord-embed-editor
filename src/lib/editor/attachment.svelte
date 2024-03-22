@@ -1,15 +1,11 @@
 <script lang="ts" context="module">
-	export interface DiscordFileData {
-		file: File;
-		description: string;
-		spoiler: boolean;
-	}
+
 </script>
 
 <script lang="ts">
 	import Button from '@smui/button';
 	import Preview from './preview.svelte';
-	import ImageList from '@smui/image-list';
+	import type { DiscordFileData } from '$lib';
 
 	export let files: DiscordFileData[] = [];
 	let input: HTMLInputElement;
@@ -19,7 +15,7 @@
 	<div class="preview">
 		{#each files as file, idx}
 			<Preview
-				file={file.file}
+				bind:file={file.file}
 				bind:spoiler={file.spoiler}
 				bind:description={file.description}
 				on:delete={() => {

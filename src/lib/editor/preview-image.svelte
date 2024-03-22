@@ -1,25 +1,11 @@
 <script lang="ts">
-	import { Image } from '@smui/image-list';
-	import { onDestroy } from 'svelte';
-	export let file: File | undefined = undefined;
-	let url: string | undefined = undefined;
-	$: {
-		if (url != null) {
-			URL.revokeObjectURL(url);
-		}
-		if (file != null) {
-			url = URL.createObjectURL(file);
-		}
-	}
-	onDestroy(() => {
-		if (url != null) {
-			URL.revokeObjectURL(url);
-		}
-	});
+	import { blobAction } from '$lib/blob-action';
+	export let file: File;
+	export let description: string;
 </script>
 
 <div>
-	<img src={url} alt="" />
+	<img use:blobAction={file} alt={description} />
 </div>
 
 <style>

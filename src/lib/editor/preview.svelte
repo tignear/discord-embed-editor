@@ -39,7 +39,7 @@
 	</div>
 	<figure>
 		{#if isImage}
-			<PreviewImage {file}></PreviewImage>
+			<PreviewImage {file} {description}></PreviewImage>
 		{:else}
 			<Icon class="material-icons attachment">attachment</Icon>
 		{/if}

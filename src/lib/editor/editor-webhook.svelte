@@ -1,10 +1,10 @@
 <script lang="ts">
+	import type { DiscordFileData } from '$lib';
 	import Button from '@smui/button';
 	import IconButton from '@smui/icon-button';
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
 	import Textfield from '@smui/textfield';
 	import type { APIEmbed, RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
-	import type { DiscordFileData } from './attachment.svelte';
 	export let webhook_url = '';
 	export let content = '';
 	export let embeds: APIEmbed[] = [];

@@ -7,7 +7,8 @@
 	import EditorWebhook from './editor/editor-webhook.svelte';
 	import TabBar from '@smui/tab-bar';
 	import Tab, { Label } from '@smui/tab';
-	import Attachment, { type DiscordFileData } from './editor/attachment.svelte';
+	import Attachment from './editor/attachment.svelte';
+	import type { DiscordFileData } from '$lib';
 	export let content = '';
 	export let icon = '';
 	export let username: string | undefined = undefined;
