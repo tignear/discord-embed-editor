@@ -4,6 +4,7 @@
 	import Editor from '$lib/editor.svelte';
 	import Message from '$lib/message/message.svelte';
 	import type { APIEmbed } from 'discord-api-types/v10';
+	import { onMount } from 'svelte';
 	let icon = '';
 	let content = `# Big Header
 ## Smaller Header
@@ -119,10 +120,10 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 				text: 'aaa'
 			},
 			image: {
-				url: Image
+				url: 'attachment://screenshot.png'
 			},
 			thumbnail: {
-				url: Image
+				url: 'attachment://screenshot.png'
 			}
 		},
 		{
@@ -132,6 +133,21 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 	];
 	let files: DiscordFileData[] = [];
 	$: attachments = files.map((e) => e.file);
+	onMount(() => {
+		fetch(Image)
+			.then((v) => v.blob())
+			.then((v) => {
+				files = [
+					{
+						file: new File([v], 'screenshot.png', {
+							type: 'image/png'
+						}),
+						description: '',
+						spoiler: false
+					}
+				];
+			});
+	});
 </script>
 
 <div style="display: flex;margin: 0">

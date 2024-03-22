@@ -7,7 +7,6 @@
 
 	$: {
 		const [scheme,filename] = src.split('://');
-    console.log(attachments,scheme,filename)
 		if (scheme === 'attachment') {
 			data = attachments.find((e) => e.name === filename);
 		} else {
