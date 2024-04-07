@@ -56,6 +56,7 @@
 		"@smui/dialog": "7.0.0-beta.18",
 		"@smui/form-field": "7.0.0-beta.18",
 		"@smui/icon-button": "7.0.0-beta.18",
+		"@smui/segmented-button": "7.0.0-beta.18",
 		"@smui/snackbar": "7.0.0-beta.18",
 		"@smui/tab": "7.0.0-beta.18",
 		"@smui/tab-bar": "7.0.0-beta.18",

@@ -7,6 +7,9 @@
 	import IconButton from '@smui/icon-button';
 	import PreviewEditDialog from './preview-edit-dialog.svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { Segment } from '@smui/segmented-button';
+	import SegmentedButton from '@smui/segmented-button';
+	import Snackbar, { Actions, Label } from '@smui/snackbar';
 	export let file: File;
 	export let description: string = '';
 	export let spoiler: boolean;
@@ -20,23 +23,34 @@
 	let open = false;
 	$: isImage = ['image/png', 'image/jpeg', 'image/gif'].includes(file.type);
 	const dispatch = createEventDispatcher();
+	let copiedSnackbar: Snackbar;
+	let copiedFileName = '';
+	const actions = {
+		link() {
+			const filename = file.name;
+			navigator.clipboard.writeText(`attachment://${filename}`).then(() => {
+				copiedSnackbar.open();
+				copiedFileName = filename;
+			});
+		},
+		edit() {
+			open = true;
+		},
+		delete() {
+			dispatch('delete');
+		}
+	};
 </script>
 
 <div class="wrapper">
 	<div class="control">
-		<IconButton
-			class="material-icons"
-			on:click={() => {
-				open = true;
-			}}>edit</IconButton
-		>
-		<IconButton
-			class="material-icons"
-			on:click={() => {
-				dispatch('delete');
-			}}>delete</IconButton
-		>
+		<SegmentedButton segments={['link', 'edit', 'delete']} let:segment>
+			<Segment {segment} on:click$preventDefault={actions[segment]}
+				><Icon class="material-icons">{segment}</Icon></Segment
+			>
+		</SegmentedButton>
 	</div>
+
 	<figure>
 		{#if isImage}
 			<PreviewImage {file} {description}></PreviewImage>
@@ -48,6 +62,12 @@
 		</figcaption>
 	</figure>
 	<PreviewEditDialog bind:open bind:description bind:spoiler bind:name></PreviewEditDialog>
+	<Snackbar bind:this={copiedSnackbar}>
+		<Label>{copiedFileName}へのリンクをコピーしました。</Label>
+		<Actions>
+			<IconButton class="material-icons" title="Dismiss">close</IconButton>
+		</Actions>
+	</Snackbar>
 </div>
 
 <style>
@@ -56,10 +76,9 @@
 		position: relative;
 	}
 	.control {
-		display: flex;
-		flex-direction: column;
 		position: absolute;
-		right: -0.5rem;
+		right: 1rem;
+		top: -0.5rem;
 	}
 	* :global(i.material-icons.attachment) {
 		font-size: 10rem;
