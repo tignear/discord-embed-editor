@@ -3,7 +3,9 @@
 	import type { APIEmbed } from 'discord-api-types/v10';
 	import Markdown from './markdown/markdown.svelte';
 	import moment from 'moment';
+	import Image from './image.svelte';
 	export let data: APIEmbed;
+	export let attachments: File[] = [];
 	$: author = data.author;
 	function timestamp(timestamp: string | undefined) {
 		return timestamp != null && timestamp != '' ? moment(timestamp).format('L HH:mm') : '';
@@ -20,7 +22,7 @@
 				{#if author != null}
 					<div class="embed-author">
 						{#if author.icon_url != null && author.icon_url != ''}
-							<img class="embed-author-icon" src={author.icon_url} alt="" />
+							<Image class="embed-author-icon" src={author.icon_url} {attachments} />
 						{/if}
 						{#if author.name != null && author.name != ''}
 							{#if author.url != null && author.url != ''}
@@ -57,18 +59,18 @@
 				<EmbedFields fields={data.fields ?? []}></EmbedFields>
 				{#if data.thumbnail != null}
 					<div class="embed-thumbnail-wrapper">
-						<img class="embed-thumbnail" alt="" src={data.thumbnail.url} />
+						<Image class="embed-thumbnail" src={data.thumbnail.url} {attachments} />
 					</div>
 				{/if}
 				{#if data.image != null}
 					<div class="embed-image-wrapper">
-						<img class="embed-image" alt="" src={data.image.url} />
+						<Image class="embed-image" src={data.image.url} {attachments} />
 					</div>
 				{/if}
 				{#if data.footer != null || data.timestamp != null}
 					<div class="embed-footer embed-margin">
 						{#if data.footer?.icon_url != null && data.footer?.icon_url != ''}
-							<img class="embed-footer-icon" src={data.footer.icon_url} alt="" />
+							<Image class="embed-footer-icon" src={data.footer.icon_url} {attachments} />
 						{/if}
 						<span class="embed-footer-text">
 							{data.footer?.text ?? ''}
@@ -130,7 +132,7 @@
 	.embed-author-link:hover {
 		text-decoration: underline;
 	}
-	.embed-author-icon {
+	div :global(.embed-author-icon) {
 		margin-right: 8px;
 		width: 24px;
 		height: 24px;
@@ -148,7 +150,7 @@
 		align-items: center;
 		grid-column: 1;
 	}
-	.embed-footer-icon {
+	div :global(.embed-footer-icon) {
 		margin-right: 8px;
 		width: 20px;
 		height: 20px;
@@ -177,7 +179,7 @@
 		max-width: 80px;
 		max-height: 80px;
 	}
-	.embed-thumbnail {
+	div:global(.embed-thumbnail) {
 		border-radius: 3px;
 	}
 	.grid-container {
@@ -192,7 +194,7 @@
 		margin-top: 16px;
 		grid-column: 1/3;
 	}
-	.embed-image {
+	div :global(.embed-image) {
 		max-width: 100%;
 		max-height: 300px;
 	}

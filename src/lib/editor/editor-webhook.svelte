@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { DiscordFileData } from '$lib';
 	import Button from '@smui/button';
 	import IconButton from '@smui/icon-button';
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
@@ -9,24 +10,39 @@
 	export let embeds: APIEmbed[] = [];
 	export let username: string | undefined;
 	export let icon: string = '';
+	export let files: DiscordFileData[];
 	let message = '';
 	let sending = false;
 	let snackbar: Snackbar;
 	async function send() {
-		const resp = await fetch(webhook_url, {
-			body: JSON.stringify({
+		const body = new FormData();
+		body.set(
+			'payload_json',
+			JSON.stringify({
 				content,
 				embeds,
 				avatar_url: icon,
+				attachments: files.map((file, idx) => {
+					return {
+						id: idx,
+						description: file.description,
+						filename: file.file.name
+					};
+				}),
 				username
-			} satisfies RESTPostAPIWebhookWithTokenJSONBody),
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			}
+			} satisfies RESTPostAPIWebhookWithTokenJSONBody)
+		);
+		let idx = 0;
+		for (const file of files) {
+			body.set(`files[${idx}]`, file.file);
+			++idx;
+		}
+		const resp = await fetch(webhook_url, {
+			body,
+			method: 'POST'
 		});
-		if (resp.status === 204) {
-			message = '送信しました';
+		if (resp.status === 200 || resp.status === 204) {
+			message = resp.status + ': 送信しました';
 			snackbar.open();
 		} else {
 			const err = await resp.json();
