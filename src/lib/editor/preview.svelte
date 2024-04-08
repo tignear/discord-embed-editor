@@ -26,7 +26,7 @@
 	const dispatch = createEventDispatcher();
 	let copiedSnackbar: Snackbar;
 	let copiedFileName = '';
-	const actions = {
+	const actions: Record<any, () => void> = {
 		link() {
 			const filename = file.name;
 			navigator.clipboard.writeText(`attachment://${filename}`).then(() => {
