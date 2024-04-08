@@ -5,6 +5,7 @@
 	import IconButton from '@smui/icon-button';
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
 	import Textfield from '@smui/textfield';
+	import CharacterCounter from '@smui/textfield/character-counter';
 	import type { APIEmbed, RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
 	export let webhook_url = '';
 	export let content = '';
@@ -75,8 +76,15 @@
 <div>
 	<Textfield bind:value={webhook_url} label="Webhook URL" style="width: 100%;" required></Textfield>
 	<Textfield bind:value={message_id} label="Message Id" style="width: 100%"></Textfield>
-	<Textfield bind:value={username} label="Username" style="width: 100%" input$emptyValueUndefined
-	></Textfield>
+	<Textfield
+		bind:value={username}
+		label="Username"
+		style="width: 100%"
+		input$emptyValueUndefined
+		input$maxlength={80}
+	>
+		<CharacterCounter slot="helper">0 / 80</CharacterCounter>
+	</Textfield>
 	<Textfield bind:value={icon} label="Avatar URL" style="width: 100%"></Textfield>
 
 	<Snackbar bind:this={snackbar} labelText={message} timeoutMs={-1}>
