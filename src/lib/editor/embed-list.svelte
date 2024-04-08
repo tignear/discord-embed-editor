@@ -1,12 +1,13 @@
 <script lang="ts">
-	import type { APIEmbed } from 'discord-api-types/v10';
+	import { EmbedType, type APIEmbed } from 'discord-api-types/v10';
 	import TabBar from '@smui/tab-bar';
 	import Tab, { Label } from '@smui/tab';
 	import Button from '@smui/button';
 	import { tick } from 'svelte';
 	import Card, { ActionButtons, Actions, Content } from '@smui/card';
 	import EmbedEdit from './embed-edit.svelte';
-	export let embeds: APIEmbed[] = [];
+	import { newEmptyEmbed, type EditorAPIEmbed } from '$lib';
+	export let embeds: EditorAPIEmbed[] = [];
 
 	let active: string | undefined = embeds.length === 0 ? undefined : '0';
 	function onMoveUp() {
@@ -24,13 +25,14 @@
 		embeds = embeds.toSpliced(idx, 1);
 		active = idx === 0 ? (embeds.length === 0 ? undefined : '0') : String(idx - 1);
 	}
+
 	async function onAdd() {
 		if (active === undefined) {
-			embeds = [{}];
+			embeds = [newEmptyEmbed()];
 			active = '0';
 		} else {
 			const idx = Number.parseInt(active);
-			embeds = embeds.toSpliced(idx + 1, 0, {});
+			embeds = embeds.toSpliced(idx + 1, 0, newEmptyEmbed());
 			await tick();
 			active = String(idx + 1);
 		}

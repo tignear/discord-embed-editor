@@ -24,7 +24,7 @@
 						{#if author.icon_url != null && author.icon_url != ''}
 							<Image class="embed-author-icon" src={author.icon_url} {attachments} />
 						{/if}
-						{#if author.name != null && author.name != ''}
+						{#if author.name != ''}
 							{#if author.url != null && author.url != ''}
 								<a
 									href={author.url}
@@ -62,14 +62,14 @@
 						<Image class="embed-thumbnail" src={data.thumbnail.url} {attachments} />
 					</div>
 				{/if}
-				{#if data.image != null}
+				{#if data.image?.url != null && data.image.url != ''}
 					<div class="embed-image-wrapper">
 						<Image class="embed-image" src={data.image.url} {attachments} />
 					</div>
 				{/if}
 				{#if data.footer != null || data.timestamp != null}
 					<div class="embed-footer embed-margin">
-						{#if data.footer?.icon_url != null && data.footer?.icon_url != ''}
+						{#if data.footer?.icon_url != null && data.footer.icon_url != ''}
 							<Image class="embed-footer-icon" src={data.footer.icon_url} {attachments} />
 						{/if}
 						<span class="embed-footer-text">
