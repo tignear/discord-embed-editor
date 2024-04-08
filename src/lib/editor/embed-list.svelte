@@ -36,7 +36,6 @@
 		}
 	}
 	$: activeIndex = active === undefined ? undefined : Number.parseInt(active!);
-	$: embed = activeIndex === undefined ? undefined : embeds[activeIndex];
 </script>
 
 <div>
@@ -48,9 +47,11 @@
 					<Label>Embed {Number.parseInt(tab) + 1}</Label>
 				</Tab>
 			</TabBar>
-			{#if embed !== undefined}
-				<EmbedEdit bind:embed></EmbedEdit>
-			{/if}
+			{#each embeds as embed, idx}
+				<div style={activeIndex === idx ? '' : 'display: none'}>
+					<EmbedEdit bind:embed></EmbedEdit>
+				</div>
+			{/each}
 		</Content>
 		<Actions>
 			<ActionButtons>
