@@ -8,11 +8,11 @@
 	import TabBar from '@smui/tab-bar';
 	import Tab, { Label } from '@smui/tab';
 	import Attachment from './editor/attachment.svelte';
-	import type { DiscordFileData } from '$lib';
+	import type { DiscordFileData, EditorAPIEmbed } from '$lib';
 	export let content = '';
 	export let icon = '';
 	export let username: string | undefined = undefined;
-	export let embeds: (Required<Pick<APIEmbed, 'thumbnail' | 'image' | 'footer'>> & APIEmbed)[] = [];
+	export let embeds: EditorAPIEmbed[] = [];
 	export let files: DiscordFileData[] = [];
 	let activeControl = 'Webhook';
 </script>
