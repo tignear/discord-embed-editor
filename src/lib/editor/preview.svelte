@@ -10,6 +10,7 @@
 	import { Segment } from '@smui/segmented-button';
 	import SegmentedButton from '@smui/segmented-button';
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
+	import { IMAGE_MIME_TYPES } from '$lib';
 	export let file: File;
 	export let description: string = '';
 	export let spoiler: boolean;
@@ -21,7 +22,7 @@
 		});
 	}
 	let open = false;
-	$: isImage = ['image/png', 'image/jpeg', 'image/gif'].includes(file.type);
+	$: isImage = IMAGE_MIME_TYPES.includes(file.type);
 	const dispatch = createEventDispatcher();
 	let copiedSnackbar: Snackbar;
 	let copiedFileName = '';
