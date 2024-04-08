@@ -75,7 +75,7 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 			color: 0xffffff,
 			description:
 				'this is embed description\n*italic1* _italic2_ **bold** ***bold_italic*** __underline__ ~~strike~~',
-			timestamp: undefined,
+			timestamp: '',
 			author: {
 				name: 'tig',
 				icon_url:

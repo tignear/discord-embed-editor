@@ -63,6 +63,7 @@
 		"@smui/tab-bar": "7.0.0-beta.18",
 		"@smui/textfield": "7.0.0-beta.18",
 		"moment": "^2.29.4",
+		"svelte-awesome-color-picker": "^3.0.6",
 		"svelte-material-ui": "7.0.0-beta.18",
 		"twemoji": "^14.0.2"
 	}
