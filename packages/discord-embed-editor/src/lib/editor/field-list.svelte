@@ -1,31 +1,39 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import Button from '@smui/button';
 	import Checkbox from '@smui/checkbox';
-	import DataTable, { Head, Row, Cell, Body, Pagination } from '@smui/data-table';
+	import DataTable, { Head, Row, Cell, Body } from '@smui/data-table';
 	import Dialog, { Actions, Content } from '@smui/dialog';
 	import FormField from '@smui/form-field';
 	import IconButton from '@smui/icon-button';
 	import Textfield from '@smui/textfield';
 	import CharacterCounter from '@smui/textfield/character-counter';
 	import type { APIEmbed } from 'discord-api-types/v10';
-	export let fields: APIEmbed['fields'] | undefined = undefined;
-	$: fields_ = fields == undefined ? [] : fields;
-	let editingIndex: number | undefined = undefined;
-	let inline: boolean | undefined = undefined;
-	let name: string = '';
-	let value: string = '';
-	let open = false;
-	const rowsPerPage = 5;
-	let currentPage = 0;
-
-	$: start = currentPage * rowsPerPage;
-	$: end = Math.min(start + rowsPerPage, fields_.length);
-	$: slice = fields_.slice(start, end);
-	$: lastPage = Math.max(Math.ceil(fields_.length / rowsPerPage) - 1, 0);
-
-	$: if (currentPage > lastPage) {
-		currentPage = lastPage;
+	interface Props {
+		fields?: APIEmbed['fields'] | undefined;
 	}
+
+	let { fields = $bindable(undefined) }: Props = $props();
+	let fields_ = $derived(fields == undefined ? [] : fields);
+	let editingIndex: number | undefined = undefined;
+	let inline: boolean = $state(false);
+	let name: string = $state('');
+	let value: string = $state('');
+	let open = $state(false);
+	const rowsPerPage = 5;
+	let currentPage = $state(0);
+
+	let start = $derived(currentPage * rowsPerPage);
+	let end = $derived(Math.min(start + rowsPerPage, fields_.length));
+	let slice = $derived(fields_.slice(start, end));
+	let lastPage = $derived(Math.max(Math.ceil(fields_.length / rowsPerPage) - 1, 0));
+
+	run(() => {
+		if (currentPage > lastPage) {
+			currentPage = lastPage;
+		}
+	});
 
 	function editRow(idx: number) {
 		editingIndex = currentPage * rowsPerPage + idx;
@@ -33,7 +41,7 @@
 			const field = fields[editingIndex]!;
 			name = field.name;
 			value = field.value;
-			inline = field.inline;
+			inline = field.inline ?? false;
 			open = true;
 		}
 	}
@@ -69,7 +77,7 @@
 				</Head>
 				<Body>
 					{#each slice as field, idx}
-						<Row on:click={() => editRow(idx)}>
+						<Row onclick={() => editRow(idx)}>
 							<Cell
 								style="max-width: 0; width: 30%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"
 								>{field.name}</Cell
@@ -84,41 +92,41 @@
 						</Row>
 					{/each}
 				</Body>
-				<Pagination slot="paginate">
+				{#snippet paginate()}
 					<IconButton
 						class="material-icons"
 						action="first-page"
 						title="First page"
-						on:click={() => (currentPage = 0)}
+						onclick={() => (currentPage = 0)}
 						disabled={currentPage === 0}>first_page</IconButton
 					>
 					<IconButton
 						class="material-icons"
 						action="prev-page"
 						title="Prev page"
-						on:click={() => currentPage--}
+						onclick={() => currentPage--}
 						disabled={currentPage === 0}>chevron_left</IconButton
 					>
 					<IconButton
 						class="material-icons"
 						action="next-page"
 						title="Next page"
-						on:click={() => currentPage++}
+						onclick={() => currentPage++}
 						disabled={currentPage === lastPage}>chevron_right</IconButton
 					>
 					<IconButton
 						class="material-icons"
 						action="last-page"
 						title="Last page"
-						on:click={() => (currentPage = lastPage)}
+						onclick={() => (currentPage = lastPage)}
 						disabled={currentPage === lastPage}>last_page</IconButton
 					>
-				</Pagination>
+				{/snippet}
 			</DataTable>
 		</div>
 		<div style="display: flex; align-items:flex-end;">
 			<Button
-				on:click={() => {
+				onclick={() => {
 					fields = fields == undefined ? [] : fields;
 					fields = fields.toSpliced(fields.length, 0, {
 						name: 'new field',
@@ -130,21 +138,21 @@
 		</div>
 	</div>
 
-	<Dialog aria-describedby="field-edit-content" bind:open on:SMUIDialog:closed={onClose}>
+	<Dialog aria-describedby="field-edit-content" bind:open onSMUIDialogClosed={onClose}>
 		<Content id="field-edit-content">
 			<Textfield bind:value={name} label="Name" input$maxlength={256} style="width: 100%">
-				<svelte:fragment slot="helper">
+				{#snippet helper()}
 					<CharacterCounter>0 / 256</CharacterCounter>
-				</svelte:fragment>
+				{/snippet}
 			</Textfield>
 			<Textfield textarea bind:value label="Value" input$maxlength={1024} style="width: 100%">
-				<svelte:fragment slot="helper">
+				{#snippet helper()}
 					<CharacterCounter>0 / 1024</CharacterCounter>
-				</svelte:fragment>
+				{/snippet}
 			</Textfield>
 			<FormField>
 				<Checkbox bind:checked={inline}></Checkbox>
-				<span slot="label">Inline</span>
+				{#snippet label()}Inline{/snippet}
 			</FormField>
 		</Content>
 

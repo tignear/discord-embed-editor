@@ -1,7 +1,9 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 </script>
 
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { Icon } from '@smui/common';
 	import PreviewImage from './preview-image.svelte';
 	import IconButton from '@smui/icon-button';
@@ -11,21 +13,25 @@
 	import SegmentedButton from '@smui/segmented-button';
 	import Snackbar, { Actions, Label } from '@smui/snackbar';
 	import { IMAGE_MIME_TYPES } from '$lib';
-	export let file: File;
-	export let description: string = '';
-	export let spoiler: boolean;
-	let name = file.name;
-	$: {
+	interface Props {
+		file: File;
+		description?: string;
+		spoiler: boolean;
+	}
+
+	let { file = $bindable(), description = $bindable(''), spoiler = $bindable() }: Props = $props();
+	let name = $state(file.name);
+	run(() => {
 		file = new File([file], name, {
 			type: file.type,
 			lastModified: file.lastModified
 		});
-	}
-	let open = false;
-	$: isImage = IMAGE_MIME_TYPES.includes(file.type);
+	});
+	let open = $state(false);
+	let isImage = $derived(IMAGE_MIME_TYPES.includes(file.type));
 	const dispatch = createEventDispatcher();
-	let copiedSnackbar: Snackbar;
-	let copiedFileName = '';
+	let copiedSnackbar: Snackbar = $state();
+	let copiedFileName = $state('');
 	const actions: Record<any, () => void> = {
 		link() {
 			const filename = file.name;
@@ -45,11 +51,13 @@
 
 <div class="wrapper">
 	<div class="control">
-		<SegmentedButton segments={['link', 'edit', 'delete']} let:segment>
-			<Segment {segment} on:click$preventDefault={actions[segment]}
-				><Icon class="material-icons">{segment}</Icon></Segment
-			>
-		</SegmentedButton>
+		<SegmentedButton segments={['link', 'edit', 'delete']} >
+			{#snippet children({ segment })}
+						<Segment {segment} on:click$preventDefault={actions[segment]}
+					><Icon class="material-icons">{segment}</Icon></Segment
+				>
+								{/snippet}
+				</SegmentedButton>
 	</div>
 
 	<figure>

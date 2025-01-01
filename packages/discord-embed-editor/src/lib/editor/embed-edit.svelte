@@ -6,11 +6,15 @@
 	import EditorTextfield from './editor-textfield.svelte';
 	import type { EditorAPIEmbed } from '$lib';
 	import ColorPicker from 'svelte-awesome-color-picker';
-	export let embed: EditorAPIEmbed;
-	$: rgb =
-		embed.color != null
+	interface Props {
+		embed: EditorAPIEmbed;
+	}
+
+	let { embed = $bindable() }: Props = $props();
+	let rgb =
+		$derived(embed.color != null
 			? { r: embed.color >> 16, g: (embed.color >> 8) & 0xff, b: embed.color & 0xff, a: 0xff }
-			: undefined;
+			: undefined);
 </script>
 
 <div>
@@ -28,7 +32,9 @@
 			input$maxlength={4000}
 			style="width: 100%;margin-top: 8px;"
 		>
-			<CharacterCounter slot="internalCounter">0 / 4000</CharacterCounter>
+			{#snippet internalCounter()}
+						<CharacterCounter >0 / 4000</CharacterCounter>
+					{/snippet}
 		</Textfield>
 	</div>
 	<EditorTextfield bind:value={embed.footer.text} label="Footer" maxLength={2048}></EditorTextfield>

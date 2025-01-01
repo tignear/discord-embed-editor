@@ -7,16 +7,28 @@
 	import Textfield from '@smui/textfield';
 	import CharacterCounter from '@smui/textfield/character-counter';
 	import type { APIEmbed, RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
-	export let webhook_url = '';
-	export let content = '';
-	export let embeds: APIEmbed[] = [];
-	export let username: string | undefined;
-	export let icon: string = '';
-	export let files: DiscordFileData[];
-	export let message_id: string = '';
-	let message = '';
-	let sending = false;
-	let snackbar: Snackbar;
+	interface Props {
+		webhook_url?: string;
+		content?: string;
+		embeds?: APIEmbed[];
+		username: string | undefined;
+		icon?: string;
+		files: DiscordFileData[];
+		message_id?: string;
+	}
+
+	let {
+		webhook_url = $bindable(''),
+		content = '',
+		embeds = [],
+		username = $bindable(),
+		icon = $bindable(''),
+		files,
+		message_id = $bindable('')
+	}: Props = $props();
+	let message = $state('');
+	let sending = $state(false);
+	let snackbar: Snackbar = $state()!;
 	async function send() {
 		const body = new FormData();
 		const url = new URL(webhook_url);
@@ -83,7 +95,9 @@
 		input$emptyValueUndefined
 		input$maxlength={80}
 	>
-		<CharacterCounter slot="helper">0 / 80</CharacterCounter>
+		{#snippet helper()}
+				<CharacterCounter >0 / 80</CharacterCounter>
+			{/snippet}
 	</Textfield>
 	<Textfield bind:value={icon} label="Avatar URL" style="width: 100%"></Textfield>
 
@@ -99,7 +113,7 @@
 		{/if}
 		<Button
 			disabled={sending || webhook_url == ''}
-			on:click={async () => {
+			onclick={async () => {
 				if (sending) {
 					return;
 				}

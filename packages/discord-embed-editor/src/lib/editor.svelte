@@ -9,12 +9,22 @@
 	import Tab, { Label } from '@smui/tab';
 	import Attachment from './editor/attachment.svelte';
 	import type { DiscordFileData, EditorAPIEmbed } from '$lib';
-	export let content = '';
-	export let icon = '';
-	export let username: string | undefined = undefined;
-	export let embeds: EditorAPIEmbed[] = [];
-	export let files: DiscordFileData[] = [];
-	let activeControl = 'Webhook';
+	interface Props {
+		content?: string;
+		icon?: string;
+		username?: string | undefined;
+		embeds?: EditorAPIEmbed[];
+		files?: DiscordFileData[];
+	}
+
+	let {
+		content = $bindable(''),
+		icon = $bindable(''),
+		username = $bindable(undefined),
+		embeds = $bindable([]),
+		files = $bindable([])
+	}: Props = $props();
+	let activeControl = $state('Webhook');
 </script>
 
 <div>
@@ -28,7 +38,9 @@
 			input$maxlength={2000}
 			style="width: 100%;"
 		>
-			<CharacterCounter slot="internalCounter">0 / 2000</CharacterCounter>
+			{#snippet internalCounter()}
+				<CharacterCounter>0 / 2000</CharacterCounter>
+			{/snippet}
 		</Textfield>
 	</Card>
 
@@ -43,10 +55,12 @@
 	<h3>送信</h3>
 	<Card>
 		<Content>
-			<TabBar tabs={['Webhook']} let:tab bind:active={activeControl}>
-				<Tab {tab} minWidth>
-					<Label>{tab}</Label>
-				</Tab>
+			<TabBar tabs={['Webhook']} bind:active={activeControl}>
+				{#snippet tab(tab)}
+					<Tab {tab} minWidth>
+						<Label>{tab}</Label>
+					</Tab>
+				{/snippet}
 			</TabBar>
 			{#if activeControl === 'Webhook'}
 				<EditorWebhook {content} {embeds} bind:icon bind:username {files}></EditorWebhook>

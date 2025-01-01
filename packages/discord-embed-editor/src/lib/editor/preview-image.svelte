@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { blobAction } from '$lib/blob-action';
-	export let file: File;
-	export let description: string;
+	interface Props {
+		file: File;
+		description: string;
+	}
+
+	let { file, description }: Props = $props();
 </script>
 
 <div>

@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { APIEmbedField } from 'discord-api-types/v10';
 	import EmbedField, { type FieldData } from './embed-field.svelte';
-	export let fields: APIEmbedField[];
+	interface Props {
+		fields: APIEmbedField[];
+	}
+
+	let { fields }: Props = $props();
 	function processInlineFields(fields: APIEmbedField[]): FieldData[] {
 		const result: FieldData[] = [];
 		let columns: APIEmbedField[] = [];
@@ -35,7 +39,7 @@
 		return result;
 	}
 
-	$: _fields = processInlineFields(fields);
+	let _fields = $derived(processInlineFields(fields));
 </script>
 
 {#if _fields.length !== 0}

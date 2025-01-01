@@ -2,20 +2,34 @@
 <script lang="ts">
 	// @ts-check
 
-	/** @type {any} */
-	export let code: string;
+	
 
-	/** @type {string} */
-	export let highlighted: string|null|undefined;
+	
 
-	/** @type {string} */
-	export let languageName: string = 'plaintext';
+	
 
-	/** @type {boolean} */
-	export let langtag = false;
+	
+	interface Props {
+		/** @type {any} */
+		code: string;
+		/** @type {string} */
+		highlighted: string|null|undefined;
+		/** @type {string} */
+		languageName?: string;
+		langtag?: boolean;
+		[key: string]: any
+	}
+
+	let {
+		code,
+		highlighted,
+		languageName = 'plaintext',
+		langtag = false,
+		...rest
+	}: Props = $props();
 </script>
 
-<pre class:langtag data-language={languageName} {...$$restProps}><code class:hljs={true}
+<pre class:langtag data-language={languageName} {...rest}><code class:hljs={true}
 		>{#if highlighted}{@html highlighted}{:else}{code}{/if}</code
 	></pre>
 

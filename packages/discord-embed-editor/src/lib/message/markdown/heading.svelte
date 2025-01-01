@@ -1,10 +1,15 @@
 <script lang="ts">
 	import type { ASTNode } from './common';
 
-	export let node: ASTNode;
+	interface Props {
+		node: ASTNode;
+		children?: import('svelte').Snippet;
+	}
+
+	let { node, children }: Props = $props();
 </script>
 
-<svelte:element this={'h' + (node.level + 3)}><slot /></svelte:element>
+<svelte:element this={'h' + (node.level + 3)}>{@render children?.()}</svelte:element>
 
 <style>
 	h4:first-child,

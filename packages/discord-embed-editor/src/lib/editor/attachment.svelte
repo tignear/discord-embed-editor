@@ -1,5 +1,4 @@
-<script lang="ts" context="module">
-
+<script lang="ts" module>
 </script>
 
 <script lang="ts">
@@ -7,8 +6,12 @@
 	import Preview from './preview.svelte';
 	import type { DiscordFileData } from '$lib';
 
-	export let files: DiscordFileData[] = [];
-	let input: HTMLInputElement;
+	interface Props {
+		files?: DiscordFileData[];
+	}
+
+	let { files = $bindable([]) }: Props = $props();
+	let input: HTMLInputElement = $state()!;
 </script>
 
 <div>
@@ -31,7 +34,7 @@
 		type="file"
 		style="opacity: 0;"
 		multiple
-		on:change={() => {
+		onchange={() => {
 			files = files.toSpliced(
 				files.length,
 				0,

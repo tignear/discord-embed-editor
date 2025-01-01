@@ -6,13 +6,22 @@
 	import Dialog, { Actions, Content } from '@smui/dialog';
 	import FormField from '@smui/form-field';
 	import Textfield from '@smui/textfield';
-	export let open = false;
-	export let name: string = '';
-	let name_ = name;
-	export let description: string = '';
-	let description_ = description;
-	export let spoiler: boolean = false;
-	let spoiler_ = spoiler;
+	let name_ = $state(name);
+	let description_ = $state(description);
+	interface Props {
+		open?: boolean;
+		name?: string;
+		description?: string;
+		spoiler?: boolean;
+	}
+
+	let {
+		open = $bindable(false),
+		name = $bindable(''),
+		description = $bindable(''),
+		spoiler = $bindable(false)
+	}: Props = $props();
+	let spoiler_ = $state(spoiler);
 
 	function onClose(e: any) {
 		open = false;
@@ -31,7 +40,9 @@
 		></Textfield>
 		<FormField>
 			<Checkbox bind:checked={spoiler_}></Checkbox>
-			<span slot="label">Spoiler</span>
+			{#snippet label()}
+						<span >Spoiler</span>
+					{/snippet}
 		</FormField>
 	</Content>
 

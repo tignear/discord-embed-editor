@@ -1,6 +1,14 @@
+<script lang="ts">
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
+</script>
+
 <div class="container">
 	<div class="divider"></div>
-	<blockquote><slot /></blockquote>
+	<blockquote>{@render children?.()}</blockquote>
 </div>
 
 <style>

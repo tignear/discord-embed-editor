@@ -1,13 +1,17 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	export type Format = 't' | 'T' | 'd' | 'D' | 'f' | 'F';
 </script>
 
 <script lang="ts">
 	import { moment } from './timestamp.svelte';
 
-	export let locales: string[] = ['en-GB'];
-	export let format: Format;
-	export let timestamp: number;
+	interface Props {
+		locales?: string[];
+		format: Format;
+		timestamp: number;
+	}
+
+	let { locales = ['en-GB'], format, timestamp }: Props = $props();
 
 	function getFormatOption(format: Format = 'f') {
 		switch (format) {

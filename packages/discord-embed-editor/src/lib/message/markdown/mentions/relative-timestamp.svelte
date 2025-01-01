@@ -2,12 +2,16 @@
 	import { onMount } from 'svelte';
   import { moment } from "./timestamp.svelte";
 
-	export let locales: string[] = ['en-GB'];
-	export let timestamp: number;
+	interface Props {
+		locales?: string[];
+		timestamp: number;
+	}
+
+	let { locales = ['en-GB'], timestamp }: Props = $props();
 	function getFormattedString() {
 		return moment.unix(timestamp).locale(locales).fromNow();
 	}
-	let formattedString = getFormattedString();
+	let formattedString = $state(getFormattedString());
 	onMount(() => {
 		const cancelToken = setInterval(() => {
 			formattedString = getFormattedString();

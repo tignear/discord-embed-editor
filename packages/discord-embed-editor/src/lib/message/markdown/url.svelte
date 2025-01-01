@@ -1,10 +1,15 @@
 <script lang="ts">
 	import type { ASTNode } from './common';
 
-	export let node: { content: ASTNode[]; target: string };
+	interface Props {
+		node: { content: ASTNode[]; target: string };
+		children?: import('svelte').Snippet;
+	}
+
+	let { node, children }: Props = $props();
 </script>
 
-<a href={node.target} rel="noreferrer noopener" target="_blank"><slot /></a>
+<a href={node.target} rel="noreferrer noopener" target="_blank">{@render children?.()}</a>
 
 <style>
 	a {

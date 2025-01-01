@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	export const tag: Record<string, string> = {
 		em: 'em',
 		strong: 'strong',
@@ -10,10 +10,15 @@
 
 <script lang="ts">
 	import type { ASTNode } from './common';
-	export let node: ASTNode;
+	interface Props {
+		node: ASTNode;
+		children?: import('svelte').Snippet;
+	}
+
+	let { node, children }: Props = $props();
 </script>
 
-<svelte:element this={tag[node.type]}><slot /></svelte:element>
+<svelte:element this={tag[node.type]}>{@render children?.()}</svelte:element>
 
 <style>
 	code {

@@ -1,7 +1,11 @@
 <script lang="ts">
 	const DEFAULT_USERNAME = 'Spidey Bot';
-	export let username: string | undefined = undefined;
-	export let timestamp: string;
+	interface Props {
+		username?: string | undefined;
+		timestamp: string;
+	}
+
+	let { username = undefined, timestamp }: Props = $props();
 </script>
 
 <span class="header">

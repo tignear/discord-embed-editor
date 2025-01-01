@@ -7,9 +7,13 @@
 	import Card, { ActionButtons, Actions, Content } from '@smui/card';
 	import EmbedEdit from './embed-edit.svelte';
 	import { newEmptyEmbed, type EditorAPIEmbed } from '$lib';
-	export let embeds: EditorAPIEmbed[] = [];
+	interface Props {
+		embeds?: EditorAPIEmbed[];
+	}
 
-	let active: string | undefined = embeds.length === 0 ? undefined : '0';
+	let { embeds = $bindable([]) }: Props = $props();
+
+	let active: string | undefined = $state(embeds.length === 0 ? undefined : '0');
 	function onMoveUp() {
 		const idx = Number.parseInt(active!);
 		embeds = embeds.toSpliced(idx - 1, 2, embeds[idx]!, embeds[idx - 1]!);
@@ -37,36 +41,38 @@
 			active = String(idx + 1);
 		}
 	}
-	$: activeIndex = active === undefined ? undefined : Number.parseInt(active!);
+	let activeIndex = $derived(active === undefined ? undefined : Number.parseInt(active!));
 </script>
 
 <div>
 	<h3>Embeds</h3>
 	<Card>
 		<Content>
-			<TabBar tabs={[...embeds.map((_, idx) => String(idx))]} let:tab bind:active>
-				<Tab {tab} minWidth>
-					<Label>Embed {Number.parseInt(tab) + 1}</Label>
-				</Tab>
+			<TabBar tabs={[...embeds.map((_, idx) => String(idx))]} bind:active>
+				{#snippet tab(tab)}
+					<Tab {tab} minWidth>
+						<Label>Embed {Number.parseInt(tab) + 1}</Label>
+					</Tab>
+				{/snippet}
 			</TabBar>
-			{#each embeds as embed, idx}
+			{#each embeds as _embed, idx}
 				<div style={activeIndex === idx ? '' : 'display: none'}>
-					<EmbedEdit bind:embed></EmbedEdit>
+					<EmbedEdit bind:embed={embeds[idx]!}></EmbedEdit>
 				</div>
 			{/each}
 		</Content>
 		<Actions>
 			<ActionButtons>
-				<Button disabled={active === undefined} on:click={() => onDelete()}>削除</Button>
-				<Button disabled={active === '0' || active === undefined} on:click={() => onMoveUp()}
+				<Button disabled={active === undefined} onclick={() => onDelete()}>削除</Button>
+				<Button disabled={active === '0' || active === undefined} onclick={() => onMoveUp()}
 					>上へ移動</Button
 				>
 				<Button
 					disabled={active === `${embeds.length - 1}` || active === undefined}
-					on:click={() => onMoveDown()}>下へ移動</Button
+					onclick={() => onMoveDown()}>下へ移動</Button
 				>
 				<Button
-					on:click={() => {
+					onclick={() => {
 						onAdd();
 					}}>追加</Button
 				>

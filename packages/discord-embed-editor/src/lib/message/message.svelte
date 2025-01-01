@@ -6,12 +6,23 @@
 	import type { APIEmbed } from 'discord-api-types/v10';
 	import { blobAction } from '$lib/blob-action';
 	import { IMAGE_MIME_TYPES } from '$lib';
-	export let content: string = '';
-	export let icon: string = '';
-	export let timestamp: string;
-	export let username: string | undefined;
-	export let embeds: APIEmbed[] = [];
-	export let attachments: File[] = [];
+	interface Props {
+		content?: string;
+		icon?: string;
+		timestamp: string;
+		username: string | undefined;
+		embeds?: APIEmbed[];
+		attachments?: File[];
+	}
+
+	let {
+		content = '',
+		icon = '',
+		timestamp,
+		username,
+		embeds = [],
+		attachments = []
+	}: Props = $props();
 	function computeUsedFiles(embeds: APIEmbed[]): string[] {
 		const urls = embeds.flatMap((embed) => {
 			return [
@@ -34,7 +45,7 @@
 		const usedFiles = computeUsedFiles(embeds);
 		return attachments.filter((e) => !usedFiles.includes(e.name));
 	}
-	$: previewAttachments = computePreviewAttachments(attachments, embeds);
+	let previewAttachments = $derived(computePreviewAttachments(attachments, embeds));
 </script>
 
 <div class="message">

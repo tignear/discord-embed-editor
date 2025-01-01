@@ -1,36 +1,45 @@
 <script lang="ts">
+	import Node from './node.svelte';
 	import { renderer, type ASTNode, simpleRenderer, leafRenderer, nodeRenderer } from './common';
-	export let node: ASTNode | ASTNode[];
+	interface Props {
+		node: ASTNode | ASTNode[];
+	}
+
+	let { node }: Props = $props();
 </script>
 
 {#if Array.isArray(node)}
 	{#each node as child}
-		<svelte:self node={child} />
+		<Node node={child} />
 	{/each}
 {:else if node.type === 'text'}
 	<span class="plain">{node.content}</span>
 {:else if node.type === 'br'}
 	<br />
 {:else if leafRenderer[node.type] != null}
-	<svelte:component this={leafRenderer[node.type]} />
+	{@const SvelteComponent = leafRenderer[node.type]}
+	<SvelteComponent />
 {:else if simpleRenderer[node.type] != null}
-	<svelte:component this={simpleRenderer[node.type]}>
+	{@const SvelteComponent_1 = simpleRenderer[node.type]}
+	<SvelteComponent_1>
 		{#if typeof node.content === 'string'}
 			{node.content}
 		{:else if node.content}
-			<svelte:self node={node.content} />
+			<Node node={node.content} />
 		{/if}
-	</svelte:component>
+	</SvelteComponent_1>
 {:else if nodeRenderer[node.type] != null}
-	<svelte:component this={nodeRenderer[node.type]} {node} />
+	{@const SvelteComponent_2 = nodeRenderer[node.type]}
+	<SvelteComponent_2 {node} />
 {:else if renderer[node.type] != null}
-	<svelte:component this={renderer[node.type]} {node}>
+	{@const SvelteComponent_3 = renderer[node.type]}
+	<SvelteComponent_3 {node}>
 		{#if typeof node.content === 'string'}
 			{node.content}
 		{:else}
-			<svelte:self node={node.content} />
+			<Node node={node.content} />
 		{/if}
-	</svelte:component>
+	</SvelteComponent_3>
 {:else}
 	{JSON.stringify(node)}
 {/if}

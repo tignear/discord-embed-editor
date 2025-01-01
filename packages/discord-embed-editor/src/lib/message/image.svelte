@@ -1,22 +1,29 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { blobAction } from '$lib/blob-action';
 
-	export let attachments: File[];
-	export let src: string;
-	let data: File | undefined;
+	interface Props {
+		attachments: File[];
+		src: string;
+		[key: string]: any
+	}
 
-	$: {
-		const [scheme,filename] = src.split('://');
+	let { ...props }: Props = $props();
+	let data: File | undefined = $state();
+
+	run(() => {
+		const [scheme,filename] = props.src.split('://');
 		if (scheme === 'attachment') {
-			data = attachments.find((e) => e.name === filename);
+			data = props.attachments.find((e) => e.name === filename);
 		} else {
 			data = undefined;
 		}
-	}
+	});
 </script>
 
 {#if data == null}
-	<img class={$$props.class} {src} alt="" />
+	<img class={props.class} src = {props.src} alt="" />
 {:else}
-	<img class={$$props.class} use:blobAction={data} alt="" />
+	<img class={props.class} use:blobAction={data} alt="" />
 {/if}

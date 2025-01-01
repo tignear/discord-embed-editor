@@ -1,3 +1,4 @@
+<!-- @migration-task Error while migrating Svelte code: Can't migrate code with afterUpdate. Please migrate by hand. -->
 <!--modified https://github.com/metonym/svelte-highlight/blob/0dfb16ab9750ad1a54ad4af5b96a7e216d47d0df/src/Highlight.svelte-->
 <script lang="ts">
   export let language: string;

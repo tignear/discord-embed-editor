@@ -1,6 +1,10 @@
 <script lang="ts">
 	const DEFAULT_AVATAR_URL = 'https://cdn.discordapp.com/embed/avatars/0.png';
-	export let src: string = DEFAULT_AVATAR_URL;
+	interface Props {
+		src?: string;
+	}
+
+	let { src = DEFAULT_AVATAR_URL }: Props = $props();
 </script>
 
 <img src={src != '' ? src : DEFAULT_AVATAR_URL} alt="" />

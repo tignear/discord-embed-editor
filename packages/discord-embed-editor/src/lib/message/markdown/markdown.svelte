@@ -1,9 +1,13 @@
 <script lang="ts">
 	import parse from 'discord-markdown-parser';
 	import Node from './node.svelte';
-	export let content: string;
-	export let target: 'content' | 'embedField' = 'content';
-	$: node = parse(content, target);
+	interface Props {
+		content: string;
+		target?: 'content' | 'embedField';
+	}
+
+	let { content, target = 'content' }: Props = $props();
+	let node = $derived(parse(content, target));
 </script>
 
 <div>

@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	export interface FieldData {
 		name: string;
 		value: string;
@@ -10,10 +10,19 @@
 <script lang="ts">
 	import Markdown from './markdown/markdown.svelte';
 
-	export let name: FieldData['name'];
-	export let value: FieldData['value'];
-	export let columnStart: number;
-	export let columnEnd: number;
+	interface Props {
+		name: FieldData['name'];
+		value: FieldData['value'];
+		columnStart: number;
+		columnEnd: number;
+	}
+
+	let {
+		name,
+		value,
+		columnStart,
+		columnEnd
+	}: Props = $props();
 </script>
 
 <div class="embed-field" style:grid-column="{columnStart.toString()}/{columnEnd.toString()}">

@@ -2,7 +2,11 @@
 	import type { ASTNode } from './common';
 	import Node from './node.svelte';
 
-	export let node: { ordered: boolean; items: ASTNode[][]; start: number };
+	interface Props {
+		node: { ordered: boolean; items: ASTNode[][]; start: number };
+	}
+
+	let { node }: Props = $props();
 </script>
 
 <svelte:element this={node.ordered ? 'ol' : 'ul'} start={node.start}>

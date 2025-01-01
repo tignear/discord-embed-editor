@@ -1,6 +1,10 @@
 <script lang="ts">
 	import Mention from './mention.svelte';
-	export let node: { name: string; subcommandGroup?: string; subcommand?: string };
+	interface Props {
+		node: { name: string; subcommandGroup?: string; subcommand?: string };
+	}
+
+	let { node }: Props = $props();
 </script>
 
 <Mention

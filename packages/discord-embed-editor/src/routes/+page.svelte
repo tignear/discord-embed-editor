@@ -4,8 +4,8 @@
 	import Editor from '$lib/editor.svelte';
 	import Message from '$lib/message/message.svelte';
 	import { onMount } from 'svelte';
-	let icon = '';
-	let content = `# Big Header
+	let icon = $state('');
+	let content = $state(`# Big Header
 ## Smaller Header
 ### Even Smaller Header
 line1
@@ -66,10 +66,10 @@ unix timestamp(f): <t:1618953630:f>
 unix timestamp(F): <t:1618953630:F>
 unix timestamp(R): <t:1703605838:R>
 
-autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-`;
+autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-`);
 	let timestamp = 'Today at 08:42';
-	let username: string | undefined = undefined;
-	let embeds = [
+	let username: string | undefined = $state(undefined);
+	let embeds = $state([
 		{
 			title: 'にゃーん',
 			color: 0xffffff,
@@ -130,9 +130,9 @@ autolink: https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-
 			color: 0x0000ff,
 			description: 'embed2'
 		}
-	];
-	let files: DiscordFileData[] = [];
-	$: attachments = files.map((e) => e.file);
+	]);
+	let files: DiscordFileData[] = $state([]);
+	let attachments = $derived(files.map((e) => e.file));
 	onMount(() => {
 		fetch(Image)
 			.then((v) => v.blob())

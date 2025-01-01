@@ -1,11 +1,21 @@
 <script lang="ts">
 	import Textfield from '@smui/textfield';
 	import CharacterCounter from '@smui/textfield/character-counter';
-	export let label: string;
-	export let value: string | undefined;
-	export let maxLength: number | undefined = undefined;
-	export let textarea: boolean = false;
-	export let ty: string = 'text';
+	interface Props {
+		label: string;
+		value: string | undefined;
+		maxLength?: number | undefined;
+		textarea?: boolean;
+		ty?: string;
+	}
+
+	let {
+		label,
+		value = $bindable(),
+		maxLength = undefined,
+		textarea = false,
+		ty = 'text'
+	}: Props = $props();
 </script>
 
 <div class="editor-textfield-wrapper">
@@ -21,7 +31,9 @@
 			input$emptyValueUndefined
 			type={ty}
 		>
-			<CharacterCounter slot="helper">0 / {maxLength}</CharacterCounter>
+			{#snippet helper()}
+						<CharacterCounter >0 / {maxLength}</CharacterCounter>
+					{/snippet}
 		</Textfield>
 	{/if}
 </div>

@@ -1,7 +1,11 @@
 <script lang="ts">
 	import Markdown from "./markdown/markdown.svelte";
 	
-	export let content: string = '';
+	interface Props {
+		content?: string;
+	}
+
+	let { content = '' }: Props = $props();
 </script>
 
 <div><Markdown {content}></Markdown></div>

@@ -4,9 +4,13 @@
 	import Markdown from './markdown/markdown.svelte';
 	import moment from 'moment';
 	import Image from './image.svelte';
-	export let data: APIEmbed;
-	export let attachments: File[] = [];
-	$: author = data.author;
+	interface Props {
+		data: APIEmbed;
+		attachments?: File[];
+	}
+
+	let { data, attachments = [] }: Props = $props();
+	let author = $derived(data.author);
 	function timestamp(timestamp: string | undefined) {
 		return timestamp != null && timestamp != '' ? moment(timestamp).format('L HH:mm') : '';
 	}
