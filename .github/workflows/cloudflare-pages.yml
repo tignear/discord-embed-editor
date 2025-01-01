@@ -20,13 +20,13 @@ jobs:
         with:
           version: 8
       - name: Build Markdown Parser
-        run: cd subtree/discord-markdown-parser && pnpm install && pnpm run build && cd ../../
+        run: cd packages/discord-embed-editor/subtree/discord-markdown-parser && pnpm install && pnpm run build && cd ../../../../
       - name: Build
-        run: pnpm install && pnpm run build
+        run: cd packages/discord-embed-editor && pnpm install && pnpm run build
       - name: Publish
         uses: cloudflare/pages-action@1
         with:
           accountId: f4d756f518bf3fb306b9a0cf16b107e6
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           projectName: discord-embed-editor
-          directory: .svelte-kit/cloudflare
+          directory: packages/discord-embed-editor/.svelte-kit/cloudflare
