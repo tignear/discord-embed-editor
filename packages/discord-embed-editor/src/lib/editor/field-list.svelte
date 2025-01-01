@@ -3,7 +3,7 @@
 
 	import Button from '@smui/button';
 	import Checkbox from '@smui/checkbox';
-	import DataTable, { Head, Row, Cell, Body } from '@smui/data-table';
+	import DataTable, { Head, Row, Cell, Body, Pagination } from '@smui/data-table';
 	import Dialog, { Actions, Content } from '@smui/dialog';
 	import FormField from '@smui/form-field';
 	import IconButton from '@smui/icon-button';
@@ -93,34 +93,36 @@
 					{/each}
 				</Body>
 				{#snippet paginate()}
-					<IconButton
-						class="material-icons"
-						action="first-page"
-						title="First page"
-						onclick={() => (currentPage = 0)}
-						disabled={currentPage === 0}>first_page</IconButton
-					>
-					<IconButton
-						class="material-icons"
-						action="prev-page"
-						title="Prev page"
-						onclick={() => currentPage--}
-						disabled={currentPage === 0}>chevron_left</IconButton
-					>
-					<IconButton
-						class="material-icons"
-						action="next-page"
-						title="Next page"
-						onclick={() => currentPage++}
-						disabled={currentPage === lastPage}>chevron_right</IconButton
-					>
-					<IconButton
-						class="material-icons"
-						action="last-page"
-						title="Last page"
-						onclick={() => (currentPage = lastPage)}
-						disabled={currentPage === lastPage}>last_page</IconButton
-					>
+					<Pagination>
+						<IconButton
+							class="material-icons"
+							action="first-page"
+							title="First page"
+							onclick={() => (currentPage = 0)}
+							disabled={currentPage === 0}>first_page</IconButton
+						>
+						<IconButton
+							class="material-icons"
+							action="prev-page"
+							title="Prev page"
+							onclick={() => currentPage--}
+							disabled={currentPage === 0}>chevron_left</IconButton
+						>
+						<IconButton
+							class="material-icons"
+							action="next-page"
+							title="Next page"
+							onclick={() => currentPage++}
+							disabled={currentPage === lastPage}>chevron_right</IconButton
+						>
+						<IconButton
+							class="material-icons"
+							action="last-page"
+							title="Last page"
+							onclick={() => (currentPage = lastPage)}
+							disabled={currentPage === lastPage}>last_page</IconButton
+						>
+					</Pagination>
 				{/snippet}
 			</DataTable>
 		</div>
