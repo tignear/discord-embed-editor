@@ -6,8 +6,7 @@
 	import Dialog, { Actions, Content } from '@smui/dialog';
 	import FormField from '@smui/form-field';
 	import Textfield from '@smui/textfield';
-	let name_ = $state(name);
-	let description_ = $state(description);
+
 	interface Props {
 		open?: boolean;
 		name?: string;
@@ -21,6 +20,8 @@
 		description = $bindable(''),
 		spoiler = $bindable(false)
 	}: Props = $props();
+	let name_ = $state(name);
+	let description_ = $state(description);
 	let spoiler_ = $state(spoiler);
 
 	function onClose(e: any) {
@@ -33,7 +34,7 @@
 	}
 </script>
 
-<Dialog aria-describedby="field-edit-content" bind:open on:SMUIDialog:closed={onClose}>
+<Dialog aria-describedby="field-edit-content" bind:open onSMUIDialogClosed={onClose}>
 	<Content id="field-edit-content">
 		<Textfield bind:value={name_} label="Name" style="width: 100%" required></Textfield>
 		<Textfield textarea bind:value={description_} label="Description(Alt text)" style="width: 100%"
@@ -41,8 +42,8 @@
 		<FormField>
 			<Checkbox bind:checked={spoiler_}></Checkbox>
 			{#snippet label()}
-						<span >Spoiler</span>
-					{/snippet}
+				<span>Spoiler</span>
+			{/snippet}
 		</FormField>
 	</Content>
 

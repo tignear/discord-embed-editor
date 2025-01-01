@@ -9,6 +9,7 @@ export const IMAGE_MIME_TYPES = Object.freeze(['image/png', 'image/jpeg', 'image
 export type EditorAPIEmbed = Required<Pick<APIEmbed, 'thumbnail' | 'image' | 'footer' | 'timestamp'>> & APIEmbed
 export function newEmptyEmbed(): EditorAPIEmbed {
   return {
+    description: '',
     author: {
       name: ''
     },

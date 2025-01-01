@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
 	import Button from '@smui/button';
 	import Checkbox from '@smui/checkbox';
 	import DataTable, { Head, Row, Cell, Body, Pagination } from '@smui/data-table';
@@ -29,7 +27,7 @@
 	let slice = $derived(fields_.slice(start, end));
 	let lastPage = $derived(Math.max(Math.ceil(fields_.length / rowsPerPage) - 1, 0));
 
-	run(() => {
+	$effect.pre(() => {
 		if (currentPage > lastPage) {
 			currentPage = lastPage;
 		}
@@ -122,21 +120,22 @@
 							onclick={() => (currentPage = lastPage)}
 							disabled={currentPage === lastPage}>last_page</IconButton
 						>
+						<IconButton
+							class="material-icons"
+							action="add"
+							title="Add"
+							onclick={() => {
+								fields = fields == undefined ? [] : fields;
+								fields = fields.toSpliced(fields.length, 0, {
+									name: 'new field',
+									value: 'new field',
+									inline: false
+								});
+							}}>add</IconButton
+						>
 					</Pagination>
 				{/snippet}
 			</DataTable>
-		</div>
-		<div style="display: flex; align-items:flex-end;">
-			<Button
-				onclick={() => {
-					fields = fields == undefined ? [] : fields;
-					fields = fields.toSpliced(fields.length, 0, {
-						name: 'new field',
-						value: 'new field',
-						inline: false
-					});
-				}}>フィールドを追加</Button
-			>
 		</div>
 	</div>
 
